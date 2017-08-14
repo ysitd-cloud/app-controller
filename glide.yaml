@@ -1,0 +1,6 @@
+package: github.com/ysitd-cloud/app-deployer
+import:
+- package: k8s.io/client-go
+  version: ^4.0.0-beta.0
+  subpackages:
+  - '...'
