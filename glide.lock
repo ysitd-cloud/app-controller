@@ -1,5 +1,5 @@
-hash: 81eb14f71743f2eb4e4c3ef61a697e7497a05d501fa634265c59cb59c794db13
-updated: 2017-08-20T02:20:20.530333515+08:00
+hash: 35edcb137366c76c6157eb88f37d75f773a7624f25ed6ef38434e41481ff2356
+updated: 2017-08-20T02:35:55.042322937+08:00
 imports:
 - name: github.com/davecgh/go-spew
   version: 5215b55f46b2b919f50a1df0eaa5886afe4e3b3d
@@ -32,6 +32,12 @@ imports:
   version: 1d0bd113de87027671077d3c71eb3ac5d7dbba72
 - name: github.com/go-redis/redis
   version: 19c1c2272e00c1aaa903cf574c746cd449f9cd3c
+  subpackages:
+  - internal
+  - internal/consistenthash
+  - internal/hashtag
+  - internal/pool
+  - internal/proto
 - name: github.com/gogo/protobuf
   version: c0656edd0d9eab7c66d1eb0c568f9039345796f7
   subpackages:
@@ -51,6 +57,8 @@ imports:
   - autoload
 - name: github.com/juju/ratelimit
   version: 5b9ff866471762aa2ab2dced63c9fb6f53921342
+- name: github.com/lib/pq
+  version: dd1fe2071026ce53f36a39112e645b4d4f5793a4
 - name: github.com/mailru/easyjson
   version: d5b7844b561a7bc640052f1b935f7b800330d7e0
   subpackages:
@@ -80,10 +88,6 @@ imports:
   - http2/hpack
   - idna
   - lex/httplex
-- name: golang.org/x/sys
-  version: 8f0908ab3b2457e2e15403d3697c9ef5cb4b57a9
-  subpackages:
-  - unix
 - name: golang.org/x/text
   version: 2910a502d2bf9e43193af9d68ca516529614eed3
   subpackages:
