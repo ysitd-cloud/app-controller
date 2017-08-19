@@ -2,7 +2,7 @@ package main
 
 import (
 	_ "github.com/joho/godotenv/autoload"
-	"github.com/ysitd-cloud/app-deployer/connect"
+	"github.com/ysitd-cloud/app-controller/connect"
 )
 
 func main() {
