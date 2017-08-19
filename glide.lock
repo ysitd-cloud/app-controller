@@ -1,5 +1,5 @@
-hash: 6233700f5f53197a894edfcffebdc05222bb5671cbdd2ff19628a2d279ac6744
-updated: 2017-08-19T13:45:01.549646507+08:00
+hash: 81eb14f71743f2eb4e4c3ef61a697e7497a05d501fa634265c59cb59c794db13
+updated: 2017-08-20T02:20:20.530333515+08:00
 imports:
 - name: github.com/davecgh/go-spew
   version: 5215b55f46b2b919f50a1df0eaa5886afe4e3b3d
@@ -30,6 +30,8 @@ imports:
   version: 6aced65f8501fe1217321abf0749d354824ba2ff
 - name: github.com/go-openapi/swag
   version: 1d0bd113de87027671077d3c71eb3ac5d7dbba72
+- name: github.com/go-redis/redis
+  version: 19c1c2272e00c1aaa903cf574c746cd449f9cd3c
 - name: github.com/gogo/protobuf
   version: c0656edd0d9eab7c66d1eb0c568f9039345796f7
   subpackages:
