@@ -1,6 +1,9 @@
 package main
 
-import "github.com/ysitd-cloud/app-deployer/connect"
+import (
+	_ "github.com/joho/godotenv/autoload"
+	"github.com/ysitd-cloud/app-deployer/connect"
+)
 
 func main() {
 	_, err := connect.GetClient()

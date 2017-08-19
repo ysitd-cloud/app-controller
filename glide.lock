@@ -1,5 +1,5 @@
-hash: e9c28fe9a2c186abe94ea99a45b8e43985a2ee6ea9fe416d9c53a580b85c8df4
-updated: 2017-08-15T02:37:08.905267444+08:00
+hash: 6233700f5f53197a894edfcffebdc05222bb5671cbdd2ff19628a2d279ac6744
+updated: 2017-08-19T13:45:01.549646507+08:00
 imports:
 - name: github.com/davecgh/go-spew
   version: 5215b55f46b2b919f50a1df0eaa5886afe4e3b3d
@@ -43,6 +43,10 @@ imports:
   version: bf9dde6d0d2c004a008c27aaee91170c786f6db8
 - name: github.com/imdario/mergo
   version: 6633656539c1639d9d78127b7d47c622b5d7b6dc
+- name: github.com/joho/godotenv
+  version: 726cc8b906e3d31c70a9671c90a13716a8d3f50d
+  subpackages:
+  - autoload
 - name: github.com/juju/ratelimit
   version: 5b9ff866471762aa2ab2dced63c9fb6f53921342
 - name: github.com/mailru/easyjson
@@ -96,7 +100,7 @@ imports:
 - name: gopkg.in/yaml.v2
   version: 53feefa2559fb8dfa8d81baad31be332c97d6c77
 - name: k8s.io/apimachinery
-  version: abe34e4f5b4413c282a83011892cbeea5b32223b
+  version: 1fd2e63a9a370677308a42f24fd40c86438afddf
   subpackages:
   - pkg/api/equality
   - pkg/api/errors
@@ -151,7 +155,7 @@ imports:
   - third_party/forked/golang/netutil
   - third_party/forked/golang/reflect
 - name: k8s.io/client-go
-  version: df46f7f13b3da19b90b8b4f0d18b8adc6fbf28dc
+  version: d92e8497f71b7b4e0494e5bd204b48d34bd6f254
   subpackages:
   - '...'
   - discovery
