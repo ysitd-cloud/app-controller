@@ -1,5 +1,5 @@
-hash: 6233700f5f53197a894edfcffebdc05222bb5671cbdd2ff19628a2d279ac6744
-updated: 2017-08-19T13:45:01.549646507+08:00
+hash: 960218c595e7a36c6611dfcbf911a8001db7e7f7e12c5b262561c1f89975c8bf
+updated: 2017-09-11T00:53:37.907950268+08:00
 imports:
 - name: github.com/davecgh/go-spew
   version: 5215b55f46b2b919f50a1df0eaa5886afe4e3b3d
@@ -49,6 +49,8 @@ imports:
   - autoload
 - name: github.com/juju/ratelimit
   version: 5b9ff866471762aa2ab2dced63c9fb6f53921342
+- name: github.com/lib/pq
+  version: dd1fe2071026ce53f36a39112e645b4d4f5793a4
 - name: github.com/mailru/easyjson
   version: d5b7844b561a7bc640052f1b935f7b800330d7e0
   subpackages:
