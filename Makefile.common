@@ -3,7 +3,7 @@ MINOR_VERSION = 0
 GIT_VERSION = 1.0.0
 GIT_COMMIT = $(git rev-parse HEAD)
 BUILD_DATE = $(date +%Y-%m-%dT%H:%M:%S%z)
-BUILD_VAR = -X version.BuildDate=$(BUILD_DATE)
+BUILD_VAR = -X version.BuildDate=$(BUILD_DATE) version.Major=$(MAJOR_VERSION) version.Minor=$(MINOR_VERSION) version.GitVersion=$(GIT_VERSION) version.GitCommit=$(GIT_COMMIT)
 BUILD_FLAG = -ldflags "$(BUILD_VAR)"
 
 dist:
