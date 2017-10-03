@@ -5,6 +5,13 @@ type MetaInformation interface {
 	GetTag() string
 }
 
+func NewMetaInformation(image, tag string) MetaInformation {
+	return &appInfo{
+		image: image,
+		tag:   tag,
+	}
+}
+
 type appInfo struct {
 	image string
 	tag   string
