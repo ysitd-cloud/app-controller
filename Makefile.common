@@ -1,0 +1,15 @@
+MAJOR_VERSION = 1
+MINOR_VERSION = 0
+GIT_VERSION = 1.0.0
+GIT_COMMIT = $(git rev-parse HEAD)
+BUILD_DATE = $(date +%Y-%m-%dT%H:%M:%S%z)
+BUILD_VAR = -X version.BuildDate=$(BUILD_DATE)
+BUILD_FLAG = -ldflags "$(BUILD_VAR)"
+
+dist:
+	mkdir dist
+
+clean:
+	rm -r dist
+
+.PHONY: clean

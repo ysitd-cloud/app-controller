@@ -1,0 +1,2 @@
+dist/manager: dist
+	go build $(BUILD_FLAG) -o dist/manager
