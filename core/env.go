@@ -1,20 +1,14 @@
 package core
 
 import (
+	"github.com/Azure/azure-storage-go"
 	"github.com/ysitd-cloud/app-controller/app"
-	"github.com/ysitd-cloud/app-controller/connect"
 )
 
-func NewEnvironmentManager() (EnvironmentManager, error) {
-	table, err := connect.NewAzureTable()
-
-	if err != nil {
-		return nil, err
-	}
-
+func NewEnvironmentManager(table storage.Table) EnvironmentManager {
 	return &environmentManager{
 		client: table,
-	}, nil
+	}
 }
 
 func (e *environmentManager) GetEntry(id string) app.Environment {

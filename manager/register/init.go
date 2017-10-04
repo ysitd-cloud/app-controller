@@ -10,4 +10,5 @@ func init() {
 	Kernel.Register(core.NewAzureServiceProvider)
 	Kernel.Register(core.NewDatabaseServiceProvider)
 	Kernel.Register(core.NewK8sServiceProvider)
+	Kernel.Register(core.NewEnvironmentManagerServiceProvider)
 }
