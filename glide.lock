@@ -1,5 +1,5 @@
-hash: 6087493e6cc2b4b00000f96751a679e3e84db319cf4e5338e0267b924d16a8c1
-updated: 2017-09-11T01:18:10.898592447+08:00
+hash: 5f830028b62b5bc065e6a33702533e87e50f524ffc5fc497fc41846d5372b512
+updated: 2017-10-03T13:55:02.187773139+08:00
 imports:
 - name: github.com/Azure/azure-storage-go
   version: 32cfbe17a139c17f84be16bdf8f9c45c840a046b
@@ -44,7 +44,7 @@ imports:
 - name: github.com/go-openapi/swag
   version: 1d0bd113de87027671077d3c71eb3ac5d7dbba72
 - name: github.com/go-redis/redis
-  version: 74d5147d860804ea34633071d0c91a7f4b0b5c3a
+  version: 8e6b51ec3a92ec095dcbd2439c7a3eec6b6cb586
   subpackages:
   - internal
   - internal/consistenthash
@@ -65,7 +65,7 @@ imports:
 - name: github.com/imdario/mergo
   version: 6633656539c1639d9d78127b7d47c622b5d7b6dc
 - name: github.com/joho/godotenv
-  version: 726cc8b906e3d31c70a9671c90a13716a8d3f50d
+  version: a79fa1e548e2c689c241d10173efd51e5d689d5b
   subpackages:
   - autoload
 - name: github.com/juju/ratelimit
@@ -101,8 +101,6 @@ imports:
 - name: golang.org/x/net
   version: f2499483f923065a842d38eb4c7f1927e6fc6e6d
   subpackages:
-  - context
-  - context/ctxhttp
   - http2
   - http2/hpack
   - idna
@@ -128,6 +126,10 @@ imports:
   version: 3887ee99ecf07df5b447e9b00d9c0b2adaa9f3e4
 - name: gopkg.in/yaml.v2
   version: 53feefa2559fb8dfa8d81baad31be332c97d6c77
+- name: k8s.io/api
+  version: 4b8fc5be9b77d91bbb6525d18591c43699a2b4e5
+  subpackages:
+  - core/v1
 - name: k8s.io/apimachinery
   version: 1fd2e63a9a370677308a42f24fd40c86438afddf
   subpackages:
@@ -135,7 +137,6 @@ imports:
   - pkg/api/errors
   - pkg/api/meta
   - pkg/api/resource
-  - pkg/api/testing
   - pkg/apimachinery
   - pkg/apimachinery/announced
   - pkg/apimachinery/registered
@@ -158,30 +159,22 @@ imports:
   - pkg/runtime/serializer/versioning
   - pkg/selection
   - pkg/types
-  - pkg/util/cache
   - pkg/util/clock
   - pkg/util/diff
   - pkg/util/errors
   - pkg/util/framer
-  - pkg/util/httpstream
-  - pkg/util/httpstream/spdy
   - pkg/util/intstr
   - pkg/util/json
-  - pkg/util/mergepatch
   - pkg/util/net
   - pkg/util/rand
-  - pkg/util/remotecommand
   - pkg/util/runtime
   - pkg/util/sets
-  - pkg/util/strategicpatch
   - pkg/util/validation
   - pkg/util/validation/field
   - pkg/util/wait
   - pkg/util/yaml
   - pkg/version
   - pkg/watch
-  - third_party/forked/golang/json
-  - third_party/forked/golang/netutil
   - third_party/forked/golang/reflect
 - name: k8s.io/client-go
   version: d92e8497f71b7b4e0494e5bd204b48d34bd6f254
@@ -261,4 +254,12 @@ imports:
   - util/flowcontrol
   - util/homedir
   - util/integer
-testImports: []
+testImports:
+- name: github.com/pmezard/go-difflib
+  version: d8ed2627bdf02c080bf22230dbb337003b7aba2d
+  subpackages:
+  - difflib
+- name: github.com/stretchr/testify
+  version: 69483b4bd14f5845b5a1e55bca19e954e827f1d0
+  subpackages:
+  - assert

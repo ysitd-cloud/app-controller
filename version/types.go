@@ -1,28 +1,25 @@
 package version
 
 import (
-	"k8s.io/apimachinery/pkg/version"
 	"runtime"
+
+	"k8s.io/apimachinery/pkg/version"
 )
 
-var Major string
-var Minor string
-var GitVersion string
-var GitCommit string
-var GitTreeState string = "clean"
-var BuildDate string
-var GoVersion string = runtime.Version()
-var Compiler string = runtime.Compiler
-var Platform string = runtime.GOOS
+var major string
+var minor string
+var gitVersion string
+var gitCommit string
+var buildDate string
 
 var Version version.Info = version.Info{
-	Major:        Major,
-	Minor:        Minor,
-	GitVersion:   GitVersion,
-	GitCommit:    GitCommit,
-	GitTreeState: GitTreeState,
-	BuildDate:    BuildDate,
-	GoVersion:    GoVersion,
-	Compiler:     Compiler,
-	Platform:     Platform,
+	Major:        major,
+	Minor:        minor,
+	GitVersion:   gitVersion,
+	GitCommit:    gitCommit,
+	GitTreeState: "celan",
+	BuildDate:    buildDate,
+	GoVersion:    runtime.Version(),
+	Compiler:     runtime.Compiler,
+	Platform:     runtime.GOOS,
 }
