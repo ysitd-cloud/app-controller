@@ -9,7 +9,7 @@ type Application interface {
 }
 
 func NewApplication(id string, environment Environment, information MetaInformation, scale AutoScale, network Network) Application {
-	return &App{
+	return &app{
 		id:        id,
 		info:      information,
 		env:       environment,
@@ -18,7 +18,7 @@ func NewApplication(id string, environment Environment, information MetaInformat
 	}
 }
 
-type App struct {
+type app struct {
 	id        string
 	info      MetaInformation
 	env       Environment
@@ -26,26 +26,26 @@ type App struct {
 	network   Network
 }
 
-func (app *App) GetID() string {
+func (app *app) GetID() string {
 	return app.id
 }
 
-func (app *App) GetMetaInformation() MetaInformation {
+func (app *app) GetMetaInformation() MetaInformation {
 	return app.info
 }
 
-func (app *App) GetEnvironment() Environment {
+func (app *app) GetEnvironment() Environment {
 	return app.env
 }
 
-func (app *App) GetMeta() MetaInformation {
+func (app *app) GetMeta() MetaInformation {
 	return app.info
 }
 
-func (app *App) GetAutoScale() AutoScale {
+func (app *app) GetAutoScale() AutoScale {
 	return app.autoScale
 }
 
-func (app *App) GetNetwork() Network {
+func (app *app) GetNetwork() Network {
 	return app.network
 }
