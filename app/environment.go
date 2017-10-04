@@ -1,5 +1,9 @@
 package app
 
+func (env Environment) AddPair(key, value string) {
+	env[key] = value
+}
+
 func (env Environment) GetKeys() []string {
 	keys := make([]string, 0, len(env))
 	for k := range env {
