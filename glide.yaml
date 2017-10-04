@@ -20,5 +20,10 @@ import:
   version: 1fd2e63a9a370677308a42f24fd40c86438afddf
 - package: k8s.io/api
   version: 4b8fc5be9b77d91bbb6525d18591c43699a2b4e5
+- package: github.com/ysitd-cloud/gin-utils
+  subpackages:
+  - env
 testImport:
-- package: github.com/stretchr/testify/assert
+- package: github.com/stretchr/testify
+  subpackages:
+  - assert
