@@ -8,8 +8,6 @@ import:
   version: ^1.1.0
   subpackages:
   - autoload
-- package: github.com/go-redis/redis
-  version: ^6.5.7
 - package: github.com/lib/pq
 - package: github.com/gin-gonic/gin
   version: ^1.2.0
@@ -23,6 +21,8 @@ import:
 - package: github.com/ysitd-cloud/gin-utils
   subpackages:
   - env
+  - net
+- package: github.com/tonyhhyip/go-di-container
 testImport:
 - package: github.com/stretchr/testify
   subpackages:
