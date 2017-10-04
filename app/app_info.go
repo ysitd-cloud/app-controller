@@ -1,26 +1,16 @@
 package app
 
-type MetaInformation interface {
-	GetImage() string
-	GetTag() string
-}
-
 func NewMetaInformation(image, tag string) MetaInformation {
-	return &appInfo{
+	return &metaInformation{
 		image: image,
 		tag:   tag,
 	}
 }
 
-type appInfo struct {
-	image string
-	tag   string
-}
-
-func (info *appInfo) GetImage() string {
+func (info *metaInformation) GetImage() string {
 	return info.image
 }
 
-func (info *appInfo) GetTag() string {
+func (info *metaInformation) GetTag() string {
 	return info.tag
 }

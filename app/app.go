@@ -1,13 +1,5 @@
 package app
 
-type Application interface {
-	GetID() string
-	GetEnvironment() Environment
-	GetMeta() MetaInformation
-	GetAutoScale() AutoScale
-	GetNetwork() Network
-}
-
 func NewApplication(id string, environment Environment, information MetaInformation, scale AutoScale, network Network) Application {
 	return &app{
 		id:        id,
@@ -16,14 +8,6 @@ func NewApplication(id string, environment Environment, information MetaInformat
 		autoScale: scale,
 		network:   network,
 	}
-}
-
-type app struct {
-	id        string
-	info      MetaInformation
-	env       Environment
-	autoScale AutoScale
-	network   Network
 }
 
 func (app *app) GetID() string {

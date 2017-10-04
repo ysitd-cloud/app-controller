@@ -1,7 +1,5 @@
 package app
 
-type Environment map[string]string
-
 func (env Environment) GetKeys() []string {
 	keys := make([]string, 0, len(env))
 	for k := range env {
