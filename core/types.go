@@ -9,7 +9,7 @@ type Manager interface {
 	GetApplication(id string) app.Application
 }
 
-type cEnvironmentManager interface {
+type EnvironmentManager interface {
 	GetEntry(id string) app.Environment
 }
 
