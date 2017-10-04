@@ -7,20 +7,51 @@ import (
 	"github.com/ysitd-cloud/gin-utils/env"
 )
 
-func NewAzureStorageClient() (storage.Client, error) {
+var storageClient storage.Client
+var storageInitial bool = false
+
+func NewAzureStorageClient() (client storage.Client, err error) {
+	if storageInitial {
+		client = storageClient
+		err = nil
+		return
+	}
+
 	name := os.Getenv("AZURE_STORAGE_NAME")
 	key := os.Getenv("AZURE_STORAGE_KEY")
 
-	return storage.NewBasicClient(name, key)
+	client, err = storage.NewBasicClient(name, key)
+
+	storageClient = client
+	storageInitial = true
+
+	return
+}
+
+var tableServiceClient storage.TableServiceClient
+var tableServiceBootstrap = false
+
+func NewAzureTableServiceClient() (client storage.TableServiceClient, err error) {
+	if tableServiceBootstrap {
+		client = tableServiceClient
+		err = nil
+		return
+	}
+
+	storageClient, err := NewAzureStorageClient()
+	client = storageClient.GetTableService()
+
+	tableServiceClient = client
+	tableServiceBootstrap = true
+	return
 }
 
 func NewAzureTable() (storage.Table, error) {
-	client, err := NewAzureStorageClient()
+	tableService, err := NewAzureTableServiceClient()
 	if err != nil {
 		return storage.Table{}, err
 	}
 
-	tableService := client.GetTableService()
 	name := env.GetEnvWithDefault("AZURE_STORAGE_TABLE", "app")
 	return tableService.GetTableReference(name), nil
 }
