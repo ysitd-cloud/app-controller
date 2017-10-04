@@ -1,5 +1,5 @@
-hash: b5608806b033229b03b188313ff17de5dcb435ee985c2114e35bb941411d76ca
-updated: 2017-10-04T15:10:25.296829047+08:00
+hash: f03e0da707b3b208aad05750a68cbcad5bea78b07847611d8030bde9abc9f67f
+updated: 2017-10-04T16:31:09.023113863+08:00
 imports:
 - name: github.com/Azure/azure-storage-go
   version: 32cfbe17a139c17f84be16bdf8f9c45c840a046b
@@ -48,14 +48,6 @@ imports:
   version: 6aced65f8501fe1217321abf0749d354824ba2ff
 - name: github.com/go-openapi/swag
   version: 1d0bd113de87027671077d3c71eb3ac5d7dbba72
-- name: github.com/go-redis/redis
-  version: 8e6b51ec3a92ec095dcbd2439c7a3eec6b6cb586
-  subpackages:
-  - internal
-  - internal/consistenthash
-  - internal/hashtag
-  - internal/pool
-  - internal/proto
 - name: github.com/gogo/protobuf
   version: c0656edd0d9eab7c66d1eb0c568f9039345796f7
   subpackages:
