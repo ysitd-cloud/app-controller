@@ -1,0 +1,43 @@
+workspace:
+  base: /go
+  path: src/github.com/ysitd-cloud/app-controller
+
+pipeline:
+  restore-cache:
+    image: plugins/s3-cache:1
+    pull: true
+    secrets: [ cache_s3_endpoint, cache_s3_access_key, cache_s3_secret_key ]
+    restore: true
+    path: drone/app-controller
+    filename: vendor.tgz
+  dependency:
+    image: ysitd/glide
+    pull: true
+    commands:
+      - go get -v github.com/Masterminds/glide
+      - cd $GOPATH/src/github.com/Masterminds/glide && git checkout a88a9a6c4eeaac084a90a0cd2ca8a148cbd3ff63 && go install && cd -
+      - glide install -v
+  rebuild-cache:
+    image: plugins/s3-cache:1
+    pull: true
+    secrets: [ cache_s3_endpoint, cache_s3_access_key, cache_s3_secret_key ]
+    rebuild: true
+    path: drone/app-controller
+    filename: vendor.tgz
+    mount:
+      - vendor
+    when:
+      event: push
+  test:
+    image: ysitd/glide
+    pull: true
+    commands:
+      - go test ./...
+  flush-cache:
+    image: plugins/s3-cache:1
+    pull: true
+    secrets: [ cache_s3_endpoint, cache_s3_access_key, cache_s3_secret_key ]
+    flush: true
+    flush_age: 7
+    path: drone/app-controller
+    filename: vendor.tgz
