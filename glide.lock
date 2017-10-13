@@ -1,5 +1,5 @@
-hash: f03e0da707b3b208aad05750a68cbcad5bea78b07847611d8030bde9abc9f67f
-updated: 2017-10-04T16:31:09.023113863+08:00
+hash: 4e2481828840479836849716463a4bc120bdf2c0b5470f07e9d7784614ee4a50
+updated: 2017-10-13T12:32:40.286234836+08:00
 imports:
 - name: github.com/Azure/azure-storage-go
   version: 32cfbe17a139c17f84be16bdf8f9c45c840a046b
@@ -33,6 +33,8 @@ imports:
   version: 22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae
 - name: github.com/gin-gonic/gin
   version: d459835d2b077e44f7c9b453505ee29881d5d12d
+  repo: https://github.com/ysitd-cloud/gin
+  vcs: git
   subpackages:
   - binding
   - render
@@ -94,7 +96,7 @@ imports:
 - name: github.com/spf13/pflag
   version: 9ff6c6923cfffbcd502984b8e0c80539a94968b7
 - name: github.com/tonyhhyip/go-di-container
-  version: 9ba78ccd7b8568269481cac661db23f969d3fc47
+  version: 70c3bbde180962982ad98529ff7f56a98693292f
 - name: github.com/ugorji/go
   version: ded73eae5db7e7a0ef6f55aace87a2873c5d2b74
   subpackages:
