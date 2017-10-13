@@ -17,7 +17,7 @@ imports:
 - name: github.com/dgrijalva/jwt-go
   version: 01aeca54ebda6e0fbfafd0a524d234159c05ec20
 - name: github.com/docker/distribution
-  version: cd27f179f2c10c5d300e6d09025b538c475b0d51
+  version: edc3ab29cdff8694dd6feb85cfeb4b5f1b38ed9c
   subpackages:
   - digest
   - reference
