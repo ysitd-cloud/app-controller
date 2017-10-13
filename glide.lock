@@ -1,5 +1,5 @@
-hash: 668506f8ef541aa4d679059828a6a335c4123c9258814fbea7c38d7673f3f1ee
-updated: 2017-10-13T20:16:38.6094606+08:00
+hash: c2f1cdccf779c9531962ff982229dc16ddfb9f7578deca1aa3ca15512eb83ce4
+updated: 2017-10-13T23:04:46.873387875+08:00
 imports:
 - name: github.com/Azure/azure-storage-go
   version: 32cfbe17a139c17f84be16bdf8f9c45c840a046b
