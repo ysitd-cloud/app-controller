@@ -26,6 +26,7 @@ pipeline:
     filename: /vendor.tgz
     mount:
       - vendor
+      - $HOME/.glide
     when:
       event: push
   test:
