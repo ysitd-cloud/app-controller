@@ -3,6 +3,10 @@ workspace:
   path: src/github.com/ysitd-cloud/app-controller
 
 pipeline:
+  env:
+    image: ysitd/glide
+    commands:
+      - env
   restore-cache:
     image: plugins/s3-cache:1
     pull: true
