@@ -1,5 +1,5 @@
-hash: 4e2481828840479836849716463a4bc120bdf2c0b5470f07e9d7784614ee4a50
-updated: 2017-10-13T12:32:40.286234836+08:00
+hash: 668506f8ef541aa4d679059828a6a335c4123c9258814fbea7c38d7673f3f1ee
+updated: 2017-10-13T20:16:38.6094606+08:00
 imports:
 - name: github.com/Azure/azure-storage-go
   version: 32cfbe17a139c17f84be16bdf8f9c45c840a046b
@@ -19,7 +19,7 @@ imports:
 - name: github.com/docker/distribution
   version: edc3ab29cdff8694dd6feb85cfeb4b5f1b38ed9c
   subpackages:
-  - digest
+  - digestset
   - reference
 - name: github.com/emicklei/go-restful
   version: ff4f55a206334ef123e4f79bbf348980da81ca46
@@ -85,6 +85,8 @@ imports:
   - jwriter
 - name: github.com/mattn/go-isatty
   version: 57fdcb988a5c543893cc61bce354a6e24ab70022
+- name: github.com/opencontainers/go-digest
+  version: 279bed98673dd5bef374d3b6e4b09e2af76183bf
 - name: github.com/PuerkitoBio/purell
   version: 8a290539e2e8629dbc4e6bad948158f790ec31f4
 - name: github.com/PuerkitoBio/urlesc

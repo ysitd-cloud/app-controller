@@ -25,11 +25,12 @@ import:
   - env
   - net
 - package: github.com/tonyhhyip/go-di-container
-- name: github.com/docker/distribution
+- package: github.com/docker/distribution
   version: edc3ab29cdff8694dd6feb85cfeb4b5f1b38ed9c
   subpackages:
-  - digest
+  - digestset
   - reference
+
 testImport:
 - package: github.com/stretchr/testify
   subpackages:
