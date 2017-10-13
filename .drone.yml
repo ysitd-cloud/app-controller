@@ -33,11 +33,7 @@ pipeline:
       - /go/.glide
     when:
       event: push
-  test:
-    image: ysitd/glide
-    pull: true
-    commands:
-      - go test ./...
+
   flush-cache:
     image: plugins/s3-cache:1
     pull: true
@@ -46,7 +42,14 @@ pipeline:
     flush_age: 7
     flush_path: drone/app-controller/vendor.tgz
 
+  unit:
+    group: test
+    image: ysitd/glide
+    pull: true
+    commands:
+      - go test ./...
   build:
+    group: test
     image: golang:1.9
     pull: true
     commands:
