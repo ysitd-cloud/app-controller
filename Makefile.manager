@@ -1,2 +1,2 @@
 dist/manager: dist
-	go build $(BUILD_FLAG) -o dist/manager
+	cd manager && go build $(BUILD_FLAG) -o ../dist/manager

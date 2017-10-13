@@ -41,3 +41,9 @@ pipeline:
     flush: true
     flush_age: 7
     flush_path: drone/app-controller/vendor.tgz
+
+  build:
+    image: golang:1.9
+    pull: true
+    commands:
+      - make all

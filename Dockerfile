@@ -1,10 +1,5 @@
-FROM ysitd/glide
+FROM scratch
 
-WORKDIR /go/src/github.com/ysitd-cloud/app-controller
+COPY dist /
 
-ADD . /go/src/github.com/ysitd-cloud/app-controller
-
-RUN glide install -v --skip-test && \
-    go install
-
-CMD ["app-controller"]
+ENTRYPOINT ["/manager"]
