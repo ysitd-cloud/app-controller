@@ -22,3 +22,5 @@ func (e *environmentManager) GetEntry(id string) app.Environment {
 
 	return env
 }
+
+func (*environmentManager) Close() {}
