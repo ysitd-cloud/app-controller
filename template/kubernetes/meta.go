@@ -12,7 +12,7 @@ func (d *deploymentV1) GetApplication() app.Application {
 	return d.application
 }
 
-func (d *deploymentV1) getName() string {
+func (d *deploymentV1) GetName() string {
 	return fmt.Sprintf("app-%s", d.application.GetID())
 }
 
@@ -27,7 +27,7 @@ func (d *deploymentV1) getLabels() map[string]string {
 
 func (d *deploymentV1) getObjectMeta() metav1.ObjectMeta {
 	return metav1.ObjectMeta{
-		Name:   d.getName(),
+		Name:   d.GetName(),
 		Labels: d.getLabels(),
 	}
 }

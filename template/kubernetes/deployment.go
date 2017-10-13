@@ -3,8 +3,8 @@ package kubernetes
 import (
 	"fmt"
 
-	"k8s.io/api/apps/v1beta1"
 	"k8s.io/api/core/v1"
+	"k8s.io/client-go/pkg/apis/apps/v1beta1"
 )
 
 func int32Ptr(i int32) *int32 { return &i }
@@ -13,7 +13,7 @@ func (d *deploymentV1) getEnv() []v1.EnvVar {
 	vars := make([]v1.EnvVar, 0)
 
 	selector := v1.LocalObjectReference{
-		Name: d.getName(),
+		Name: d.GetName(),
 	}
 
 	for k, _ := range d.application.GetEnvironment() {
@@ -47,7 +47,7 @@ func (d *deploymentV1) GetContainer() v1.Container {
 	}
 
 	container := v1.Container{
-		Name:  d.getName(),
+		Name:  d.GetName(),
 		Image: image,
 		Ports: []v1.ContainerPort{port},
 		Env:   d.getEnv(),
