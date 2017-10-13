@@ -9,7 +9,7 @@ pipeline:
     secrets: [ cache_s3_endpoint, cache_s3_access_key, cache_s3_secret_key ]
     restore: true
     path: drone/app-controller
-    filename: vendor.tgz
+    filename: /vendor.tgz
   dependency:
     image: ysitd/glide
     pull: true
@@ -23,7 +23,7 @@ pipeline:
     secrets: [ cache_s3_endpoint, cache_s3_access_key, cache_s3_secret_key ]
     rebuild: true
     path: drone/app-controller
-    filename: vendor.tgz
+    filename: /vendor.tgz
     mount:
       - vendor
     when:
@@ -39,5 +39,4 @@ pipeline:
     secrets: [ cache_s3_endpoint, cache_s3_access_key, cache_s3_secret_key ]
     flush: true
     flush_age: 7
-    path: drone/app-controller
-    filename: vendor.tgz
+    flush_path: drone/app-controller/vendor.tgz
