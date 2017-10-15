@@ -13,6 +13,7 @@ func CreateKernel() container.Kernel {
 	kernel.Register(core.NewK8sServiceProvider)
 	kernel.Register(core.NewEnvironmentManagerServiceProvider)
 	kernel.Register(provider.NewClientServiceProvider)
+	kernel.Register(provider.NewDeployerServiceProvider)
 
 	return kernel
 }

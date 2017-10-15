@@ -25,6 +25,9 @@ func (sp *managerServiceProvider) Provides() []string {
 	return []string{
 		"core.manager.env",
 		"core.manager.meta",
+		"core.manager.network",
+		"core.manager.autoScale",
+		"core.manager",
 	}
 }
 

@@ -11,8 +11,8 @@ import:
 - package: github.com/lib/pq
 - package: github.com/gin-gonic/gin
   version: ^1.2.0
-  vcs: git
   repo: https://github.com/ysitd-cloud/gin
+  vcs: git
 - package: github.com/Azure/azure-storage-go
 - package: github.com/satori/go.uuid
   version: ^1.1.0
@@ -30,7 +30,7 @@ import:
   subpackages:
   - digestset
   - reference
-
+- package: github.com/streadway/amqp
 testImport:
 - package: github.com/stretchr/testify
   subpackages:

@@ -22,6 +22,22 @@ type KubernetesDeployer struct {
 	manager    Manager
 }
 
+func NewKubernetesDeployer(
+	manager Manager,
+	deployment appv1beta1.DeploymentInterface,
+	ingress extv1beta1.IngressInterface,
+	service corev1.ServiceInterface,
+	secret corev1.SecretInterface,
+) *KubernetesDeployer {
+	return &KubernetesDeployer{
+		deployment: deployment,
+		manager:    manager,
+		ingress:    ingress,
+		service:    service,
+		secret:     secret,
+	}
+}
+
 func (deployer *KubernetesDeployer) createTemplate(id string) kubernetes.KubernetesDeployment {
 	app := deployer.manager.GetApplication(id)
 	template := kubernetes.NewKubernetesDeployment(app)
