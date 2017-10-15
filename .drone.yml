@@ -53,4 +53,4 @@ pipeline:
     image: golang:1.9
     pull: true
     commands:
-      - make all
+      - make all -j
