@@ -1,6 +1,6 @@
 package kubernetes
 
-import "k8s.io/api/extensions/v1beta1"
+import "k8s.io/client-go/pkg/apis/extensions/v1beta1"
 
 func (d *deploymentV1) GetIngress() *v1beta1.Ingress {
 	backend := v1beta1.IngressBackend{

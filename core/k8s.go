@@ -50,3 +50,60 @@ func (deployer *KubernetesDeployer) DeleteDeployment(id string) error {
 	template := deployer.createTemplate(id)
 	return deployer.deployment.Delete(template.GetName(), &deletePolicy)
 }
+
+func (deployer *KubernetesDeployer) CreateService(id string) error {
+	template := deployer.createTemplate(id)
+	service := template.GetService()
+	_, err := deployer.service.Create(service)
+	return err
+}
+
+func (deployer *KubernetesDeployer) UpdateService(id string) error {
+	template := deployer.createTemplate(id)
+	service := template.GetService()
+	_, err := deployer.service.Update(service)
+	return err
+}
+
+func (deployer *KubernetesDeployer) DeleteService(id string) error {
+	template := deployer.createTemplate(id)
+	return deployer.service.Delete(template.GetName(), &deletePolicy)
+}
+
+func (deployer *KubernetesDeployer) CreateSecret(id string) error {
+	template := deployer.createTemplate(id)
+	secret := template.GetSecret()
+	_, err := deployer.secret.Create(secret)
+	return err
+}
+
+func (deployer *KubernetesDeployer) UpdateSecret(id string) error {
+	template := deployer.createTemplate(id)
+	secret := template.GetSecret()
+	_, err := deployer.secret.Update(secret)
+	return err
+}
+
+func (deployer *KubernetesDeployer) DeleteSecret(id string) error {
+	template := deployer.createTemplate(id)
+	return deployer.secret.Delete(template.GetName(), &deletePolicy)
+}
+
+func (deployer *KubernetesDeployer) CreateIngress(id string) error {
+	template := deployer.createTemplate(id)
+	ingress := template.GetIngress()
+	_, err := deployer.ingress.Create(ingress)
+	return err
+}
+
+func (deployer *KubernetesDeployer) UpdateIngress(id string) error {
+	template := deployer.createTemplate(id)
+	ingress := template.GetIngress()
+	_, err := deployer.ingress.Update(ingress)
+	return err
+}
+
+func (deployer *KubernetesDeployer) DeleteIngress(id string) error {
+	template := deployer.createTemplate(id)
+	return deployer.ingress.Delete(template.GetName(), &deletePolicy)
+}

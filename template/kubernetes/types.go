@@ -2,8 +2,8 @@ package kubernetes
 
 import (
 	"github.com/ysitd-cloud/app-controller/app"
-	"k8s.io/api/core/v1"
-	"k8s.io/api/extensions/v1beta1"
+	"k8s.io/client-go/pkg/apis/extensions/v1beta1"
+	"k8s.io/client-go/pkg/api/v1"
 	apps "k8s.io/client-go/pkg/apis/apps/v1beta1"
 )
 

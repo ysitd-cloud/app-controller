@@ -3,7 +3,7 @@ package kubernetes
 import (
 	"fmt"
 
-	"k8s.io/api/core/v1"
+	"k8s.io/client-go/pkg/api/v1"
 	"k8s.io/client-go/pkg/apis/apps/v1beta1"
 )
 
