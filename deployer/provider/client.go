@@ -9,6 +9,15 @@ type clientServiceProvider struct {
 	*container.AbstractServiceProvider
 }
 
+func NewClientServiceProvider(kernel container.Container) container.ServiceProvider {
+	sp := clientServiceProvider{
+		AbstractServiceProvider: container.NewAbstractServiceProvider(true),
+	}
+	sp.SetContainer(kernel)
+
+	return &sp
+}
+
 func (*clientServiceProvider) Provides() []string {
 	return []string{
 		"k8s.client.deployment",
