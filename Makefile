@@ -14,4 +14,4 @@ clean:
 .PHONY: clean
 
 manager:
-	go build $(BUILD_FLAG)
+	go build $(BUILD_FLAG) -o manager

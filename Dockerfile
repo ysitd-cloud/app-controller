@@ -1,5 +1,5 @@
 FROM scratch
 
-COPY dist /
+COPY manager /
 
-ENTRYPOINT ["/manager"]
+ENTRYPOINT ["/app-controller"]

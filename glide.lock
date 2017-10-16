@@ -1,5 +1,5 @@
-hash: 9ff6ef4a48cdeb7e218b3ac8b251ae0d4a270b14d22b707ba16f36b8f50ccf13
-updated: 2017-10-15T17:57:46.619484987+08:00
+hash: c2f1cdccf779c9531962ff982229dc16ddfb9f7578deca1aa3ca15512eb83ce4
+updated: 2017-10-16T22:24:42.134203365+08:00
 imports:
 - name: github.com/Azure/azure-storage-go
   version: 32cfbe17a139c17f84be16bdf8f9c45c840a046b
@@ -97,8 +97,6 @@ imports:
   version: 5bf94b69c6b68ee1b541973bb8e1144db23a194b
 - name: github.com/spf13/pflag
   version: 9ff6c6923cfffbcd502984b8e0c80539a94968b7
-- name: github.com/streadway/amqp
-  version: 7db842394ca79f338f781d47bc59115f44adb20b
 - name: github.com/tonyhhyip/go-di-container
   version: 70c3bbde180962982ad98529ff7f56a98693292f
 - name: github.com/ugorji/go
