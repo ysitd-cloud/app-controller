@@ -5,6 +5,9 @@ import (
 
 	"github.com/Azure/azure-storage-go"
 	"github.com/ysitd-cloud/app-controller/app"
+	appv1beta1 "k8s.io/client-go/kubernetes/typed/apps/v1beta1"
+	corev1 "k8s.io/client-go/kubernetes/typed/core/v1"
+	extv1beta1 "k8s.io/client-go/kubernetes/typed/extensions/v1beta1"
 )
 
 type Manager interface {
@@ -51,4 +54,12 @@ type NetworkManager interface {
 
 type networkManager struct {
 	db *sql.DB
+}
+
+type KubernetesDeployer struct {
+	deployment appv1beta1.DeploymentInterface
+	ingress    extv1beta1.IngressInterface
+	service    corev1.ServiceInterface
+	secret     corev1.SecretInterface
+	manager    Manager
 }

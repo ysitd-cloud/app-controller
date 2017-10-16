@@ -14,14 +14,6 @@ var deletePolicy metav1.DeleteOptions = metav1.DeleteOptions{
 	PropagationPolicy: &propagationPolicy,
 }
 
-type KubernetesDeployer struct {
-	deployment appv1beta1.DeploymentInterface
-	ingress    extv1beta1.IngressInterface
-	service    corev1.ServiceInterface
-	secret     corev1.SecretInterface
-	manager    Manager
-}
-
 func NewKubernetesDeployer(
 	manager Manager,
 	deployment appv1beta1.DeploymentInterface,
