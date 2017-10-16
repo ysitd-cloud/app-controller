@@ -1,4 +1,4 @@
-package provider
+package providers
 
 import (
 	"github.com/tonyhhyip/go-di-container"

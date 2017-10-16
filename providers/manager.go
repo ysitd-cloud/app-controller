@@ -11,7 +11,7 @@ type managerServiceProvider struct {
 	*container.AbstractServiceProvider
 }
 
-func NewEnvironmentManagerServiceProvider(app container.Container) container.ServiceProvider {
+func NewManagerServiceProvider(app container.Container) container.ServiceProvider {
 	sp := managerServiceProvider{
 		AbstractServiceProvider: container.NewAbstractServiceProvider(true),
 	}

@@ -20,7 +20,11 @@ type HttpServerServiceProvider struct {
 
 func (sp *HttpServerServiceProvider) Register(app container.Container) {
 	app.Singleton("http.server", func(app container.Container) interface{} {
-		return gin.Default()
+		engine := gin.Default()
+		engine.Use(func(c *gin.Context) {
+			c.Set("kernel", app)
+		})
+		return engine
 	})
 }
 

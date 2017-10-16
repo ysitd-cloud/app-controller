@@ -1,2 +1,0 @@
-dist/deployer: dist
-	cd deployer && go build $(BUILD_FLAG) -o ../dist/deployer

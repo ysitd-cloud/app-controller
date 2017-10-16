@@ -30,7 +30,6 @@ import:
   subpackages:
   - digestset
   - reference
-- package: github.com/streadway/amqp
 testImport:
 - package: github.com/stretchr/testify
   subpackages:
