@@ -13,6 +13,10 @@ type Manager struct {
 	db *sql.DB
 }
 
+func (m *Manager) Close() {
+	m.db.Close()
+}
+
 type Application struct {
 	ID          string      `json:"id,omitempty"`
 	Owner       string      `json:"owner"`
