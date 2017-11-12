@@ -17,7 +17,7 @@ var Version version.Info = version.Info{
 	Minor:        minor,
 	GitVersion:   gitVersion,
 	GitCommit:    gitCommit,
-	GitTreeState: "celan",
+	GitTreeState: "clean",
 	BuildDate:    buildDate,
 	GoVersion:    runtime.Version(),
 	Compiler:     runtime.Compiler,

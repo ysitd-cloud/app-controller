@@ -1,10 +1,10 @@
-package kubernetes
+package template
 
 import "k8s.io/client-go/pkg/apis/extensions/v1beta1"
 
-func (d *deploymentV1) GetIngress() *v1beta1.Ingress {
+func GenerateIngress(id, domain string) *v1beta1.Ingress {
 	backend := v1beta1.IngressBackend{
-		ServiceName: d.GetName(),
+		ServiceName: getName(id),
 		ServicePort: getPortData(80),
 	}
 
@@ -18,7 +18,7 @@ func (d *deploymentV1) GetIngress() *v1beta1.Ingress {
 	}
 
 	rule := v1beta1.IngressRule{
-		Host: d.application.GetNetwork().GetDomain(),
+		Host: domain,
 		IngressRuleValue: v1beta1.IngressRuleValue{
 			HTTP: &ruleValue,
 		},
@@ -29,7 +29,7 @@ func (d *deploymentV1) GetIngress() *v1beta1.Ingress {
 	}
 
 	return &v1beta1.Ingress{
-		ObjectMeta: d.getObjectMeta(),
+		ObjectMeta: getObjectMeta(id),
 		Spec:       spec,
 	}
 }

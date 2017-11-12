@@ -1,4 +1,4 @@
-package kubernetes
+package template
 
 import (
 	"k8s.io/apimachinery/pkg/util/intstr"
@@ -12,14 +12,14 @@ func getPortData(port int32) intstr.IntOrString {
 	}
 }
 
-func (d *deploymentV1) GetService() *v1.Service {
-	selector := d.getLabels()
+func GenerateService(id string) *v1.Service {
+	selector := getLabels(id)
 
 	ports := []v1.ServicePort{
 		{
 			Name:       "http",
 			Port:       80,
-			TargetPort: getPortData(d.application.GetNetwork().GetPort()),
+			TargetPort: getPortData(80),
 			Protocol:   v1.ProtocolTCP,
 		},
 	}
@@ -31,7 +31,7 @@ func (d *deploymentV1) GetService() *v1.Service {
 	}
 
 	return &v1.Service{
-		ObjectMeta: d.getObjectMeta(),
+		ObjectMeta: getObjectMeta(id),
 		Spec:       spec,
 	}
 }

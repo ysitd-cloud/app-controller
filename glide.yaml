@@ -1,9 +1,5 @@
 package: github.com/ysitd-cloud/app-controller
 import:
-- package: k8s.io/client-go
-  version: ^4.0.0
-  subpackages:
-  - '...'
 - package: github.com/joho/godotenv
   version: ^1.1.0
   subpackages:
@@ -13,24 +9,15 @@ import:
   version: ^1.2.0
   repo: https://github.com/ysitd-cloud/gin
   vcs: git
-- package: github.com/Azure/azure-storage-go
 - package: github.com/satori/go.uuid
   version: ^1.1.0
-- package: k8s.io/apimachinery
-  version: 1fd2e63a9a370677308a42f24fd40c86438afddf
-- package: k8s.io/api
-  version: 4b8fc5be9b77d91bbb6525d18591c43699a2b4e5
+- package: github.com/ysitd-cloud/k8s-utils
+  version: aaaa2a247ce00400f5d3274c47386f2e06333dfd
 - package: github.com/ysitd-cloud/gin-utils
   subpackages:
   - env
   - net
 - package: github.com/tonyhhyip/go-di-container
-- package: github.com/docker/distribution
-  version: edc3ab29cdff8694dd6feb85cfeb4b5f1b38ed9c
-  subpackages:
-  - digestset
-  - reference
-- package: github.com/streadway/amqp
 testImport:
 - package: github.com/stretchr/testify
   subpackages:
