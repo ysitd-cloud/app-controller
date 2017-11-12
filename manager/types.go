@@ -13,6 +13,10 @@ type Manager struct {
 	db *sql.DB
 }
 
+func (m *Manager) SetDB(db *sql.DB) {
+	m.db = db
+}
+
 func (m *Manager) Close() {
 	m.db.Close()
 }

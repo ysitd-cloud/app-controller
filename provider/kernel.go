@@ -33,4 +33,13 @@ func init() {
 		sp.SetContainer(app)
 		return sp
 	})
+
+	Kernel.Register(func(app container.Container) container.ServiceProvider {
+		sp := &managerServiceProvider{
+			AbstractServiceProvider: container.NewAbstractServiceProvider(true),
+		}
+		sp.SetContainer(app)
+
+		return sp
+	})
 }
