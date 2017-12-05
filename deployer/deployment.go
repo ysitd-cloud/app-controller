@@ -12,7 +12,7 @@ func (c *Controller) deploymentClient() appv1beta2.DeploymentInterface {
 	return c.client.AppsV1beta2().Deployments(c.namespace)
 }
 
-func (c *Controller) CreateDeployment(deployment *v1beta2.Deployment) (*v1beta1.Deployment, error) {
+func (c *Controller) CreateDeployment(deployment *v1beta2.Deployment) (*v1beta2.Deployment, error) {
 	return c.deploymentClient().Create(deployment)
 }
 

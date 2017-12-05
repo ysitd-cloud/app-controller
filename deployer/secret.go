@@ -7,7 +7,7 @@ import (
 )
 
 func (c *Controller) secretClient() corev1.SecretInterface {
-	return c.client.Secrets(c.namespace)
+	return c.client.CoreV1().Secrets(c.namespace)
 }
 
 func (c *Controller) CreateSecret(secret *v1.Secret) (*v1.Secret, error) {

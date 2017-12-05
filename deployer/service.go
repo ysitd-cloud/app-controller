@@ -6,7 +6,7 @@ import (
 )
 
 func (c *Controller) serviceClient() corev1.ServiceInterface {
-	return c.client.Services(c.namespace)
+	return c.client.CoreV1().Services(c.namespace)
 }
 
 func (c *Controller) CreateService(service *v1.Service) (*v1.Service, error) {
