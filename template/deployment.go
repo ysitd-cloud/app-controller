@@ -18,12 +18,12 @@ func GenerateDeployment(id, image, tag string, env map[string]string) *v1beta2.D
 		},
 	}
 
-	spec := v1beta1.DeploymentSpec{
+	spec := v1beta2.DeploymentSpec{
 		Replicas: int32Ptr(1),
 		Template: template,
 	}
 
-	return &v1beta1.Deployment{
+	return &v1beta2.Deployment{
 		ObjectMeta: meta,
 		Spec:       spec,
 	}
