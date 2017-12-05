@@ -4,15 +4,15 @@ import (
 	"fmt"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	appv1beta1 "k8s.io/client-go/kubernetes/typed/apps/v1beta1"
-	"k8s.io/client-go/pkg/apis/apps/v1beta1"
+	appv1beta2 "k8s.io/client-go/kubernetes/typed/apps/v1beta2"
+	"k8s.io/api/apps/v1beta2"
 )
 
-func (c *Controller) deploymentClient() appv1beta1.DeploymentInterface {
-	return c.client.AppsV1beta1().Deployments(c.namespace)
+func (c *Controller) deploymentClient() appv1beta2.DeploymentInterface {
+	return c.client.AppsV1beta2().Deployments(c.namespace)
 }
 
-func (c *Controller) CreateDeployment(deployment *v1beta1.Deployment) (*v1beta1.Deployment, error) {
+func (c *Controller) CreateDeployment(deployment *v1beta2.Deployment) (*v1beta1.Deployment, error) {
 	return c.deploymentClient().Create(deployment)
 }
 
@@ -20,11 +20,11 @@ func (c *Controller) DeleteDeployment(name string) error {
 	return c.deploymentClient().Delete(name, deleteOptions)
 }
 
-func (c *Controller) GetDeployment(name string) (*v1beta1.Deployment, error) {
+func (c *Controller) GetDeployment(name string) (*v1beta2.Deployment, error) {
 	return c.deploymentClient().Get(name, metav1.GetOptions{})
 }
 
-func (c *Controller) UpdateDeploymentImage(name, image, tag string) (*v1beta1.Deployment, error) {
+func (c *Controller) UpdateDeploymentImage(name, image, tag string) (*v1beta2.Deployment, error) {
 	deployment, err := c.GetDeployment(name)
 	if err != nil {
 		return nil, err

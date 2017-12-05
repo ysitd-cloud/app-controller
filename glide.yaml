@@ -12,7 +12,7 @@ import:
 - package: github.com/satori/go.uuid
   version: ^1.1.0
 - package: github.com/ysitd-cloud/k8s-utils
-  version: aaaa2a247ce00400f5d3274c47386f2e06333dfd
+  version: 71ce85c30f133b738ea256ea6a2fe42456647fb1
 - package: github.com/ysitd-cloud/gin-utils
   subpackages:
   - env

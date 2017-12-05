@@ -1,6 +1,6 @@
 package template
 
-import "k8s.io/client-go/pkg/apis/extensions/v1beta1"
+import "k8s.io/api/extensions/v1beta1"
 
 func GenerateIngress(id, domain string) *v1beta1.Ingress {
 	backend := v1beta1.IngressBackend{

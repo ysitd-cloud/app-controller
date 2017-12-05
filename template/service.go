@@ -2,7 +2,7 @@ package template
 
 import (
 	"k8s.io/apimachinery/pkg/util/intstr"
-	"k8s.io/client-go/pkg/api/v1"
+	"k8s.io/api/core/v1"
 )
 
 func getPortData(port int32) intstr.IntOrString {

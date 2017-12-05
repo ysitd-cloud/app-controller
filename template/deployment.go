@@ -3,11 +3,11 @@ package template
 import (
 	"fmt"
 
-	"k8s.io/client-go/pkg/api/v1"
-	"k8s.io/client-go/pkg/apis/apps/v1beta1"
+	"k8s.io/api/core/v1"
+	"k8s.io/api/apps/v1beta2"
 )
 
-func GenerateDeployment(id, image, tag string, env map[string]string) *v1beta1.Deployment {
+func GenerateDeployment(id, image, tag string, env map[string]string) *v1beta2.Deployment {
 	meta := getObjectMeta(id)
 	container := getContainer(id, image, tag, env)
 
