@@ -5,6 +5,8 @@ import (
 
 	"k8s.io/api/core/v1"
 	"k8s.io/api/apps/v1beta2"
+
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 func GenerateDeployment(id, image, tag string, env map[string]string) *v1beta2.Deployment {
@@ -18,9 +20,14 @@ func GenerateDeployment(id, image, tag string, env map[string]string) *v1beta2.D
 		},
 	}
 
+	selector := &metav1.LabelSelector{
+		MatchLabels: getLabels(id),
+	}
+
 	spec := v1beta2.DeploymentSpec{
 		Replicas: int32Ptr(1),
 		Template: template,
+		Selector: selector,
 	}
 
 	return &v1beta2.Deployment{
