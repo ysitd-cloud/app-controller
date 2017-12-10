@@ -24,5 +24,6 @@ func getLabels(id string) map[string]string {
 	labels["deployerGitVersion"] = version.Version.GoVersion
 	labels["deployerGoVersion"] = version.Version.GoVersion
 	labels["app"] = id
+	labels["type"] = "userApp"
 	return labels
 }
