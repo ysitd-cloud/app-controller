@@ -5,7 +5,7 @@ import (
 )
 
 func (m *Manager) GetNetwork(id string) (*Network, error) {
-	query := `SELECT domain WHERE id = $1`
+	query := `SELECT domain WHERE app = $1`
 	row := m.db.QueryRow(query, id)
 
 	var network Network
@@ -20,7 +20,7 @@ func (m *Manager) GetNetwork(id string) (*Network, error) {
 }
 
 func (m *Manager) CreateNetwork(id string, network *Network) error {
-	sql := `INSERT INTO app_network (id, domain) VALUES (?, ?)`
+	sql := `INSERT INTO app_network (app, domain) VALUES ($1, $2)`
 	result, err := m.db.Exec(sql, id, network.Domain)
 	if err != nil {
 		return err
@@ -36,7 +36,7 @@ func (m *Manager) CreateNetwork(id string, network *Network) error {
 }
 
 func (m *Manager) UpdateNetwork(id string, network *Network) error {
-	sql := `UPDATE app_network SET domain = $2 WHERE id = $1`
+	sql := `UPDATE app_network SET domain = $2 WHERE app = $1`
 	result, err := m.db.Exec(sql, id, network.Domain)
 	if err != nil {
 		return err
@@ -52,7 +52,7 @@ func (m *Manager) UpdateNetwork(id string, network *Network) error {
 }
 
 func (m *Manager) DeleteNetwork(id string) error {
-	sql := `DELETE FROM app_network WHERE id = $1`
+	sql := `DELETE FROM app_network WHERE app = $1`
 	result, err := m.db.Exec(sql, id)
 	if err != nil {
 		return err

@@ -5,7 +5,7 @@ import (
 )
 
 func (m *Manager) GetDeployment(id string) (*Deployment, error) {
-	query := `SELECT image, tag WHERE id = $1`
+	query := `SELECT image, tag WHERE app = $1`
 	row := m.db.QueryRow(query, id)
 
 	var deployment Deployment
@@ -20,7 +20,7 @@ func (m *Manager) GetDeployment(id string) (*Deployment, error) {
 }
 
 func (m *Manager) CreateDeployment(id string, deployment *Deployment) error {
-	sql := `INSERT INTO app_deployment (id, image, tag) VALUES (?, ?, ?)`
+	sql := `INSERT INTO app_deployment (app, image, tag) VALUES ($1, $2, $3)`
 	image := deployment.Image
 	tag := deployment.Tag
 	result, err := m.db.Exec(sql, id, image, tag)
@@ -38,7 +38,7 @@ func (m *Manager) CreateDeployment(id string, deployment *Deployment) error {
 }
 
 func (m *Manager) UpdateDeployment(id string, deployment *Deployment) error {
-	sql := `UPDATE app_deployment SET image = $2, tag = $3 WHERE id = $1`
+	sql := `UPDATE app_deployment SET image = $2, tag = $3 WHERE app = $1`
 	image := deployment.Image
 	tag := deployment.Tag
 	result, err := m.db.Exec(sql, id, image, tag)
@@ -56,7 +56,7 @@ func (m *Manager) UpdateDeployment(id string, deployment *Deployment) error {
 }
 
 func (m *Manager) DeleteDeployment(id string) error {
-	sql := `DELETE FROM app_deployment WHERE id = $1`
+	sql := `DELETE FROM app_deployment WHERE app = $1`
 	result, err := m.db.Exec(sql, id)
 	if err != nil {
 		return err

@@ -11,7 +11,7 @@ func (m *Manager) CreateApplication(app Application) error {
 	if app.ID == "" {
 		app.ID = uuid.NewV4().String()
 	}
-	sql := `INSERT INTO applications (id, owner) VALUES (?, ?)`
+	sql := `INSERT INTO applications (id, owner) VALUES ($1, $2)`
 	result, err := m.db.Exec(sql, app.ID, app.Owner)
 	if err != nil {
 		return err

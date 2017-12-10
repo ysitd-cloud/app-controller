@@ -6,7 +6,7 @@ import (
 )
 
 func (m *Manager) GetEnvironment(id string) (Environment, error) {
-	query := `SELECT values FROM app_environment WHERE id = $1`
+	query := `SELECT values FROM app_environment WHERE app = $1`
 	row := m.db.QueryRow(query, id)
 
 	var values string
@@ -28,8 +28,8 @@ func (m *Manager) CreateEnvironment(id string, env Environment) (error) {
 	if err != nil {
 		return err
 	}
-	query := `INSERT INTO app_environment (id, values) VALUES ($1, $2)`
-	result, err := m.db.Exec(query, string(values))
+	query := `INSERT INTO app_environment (app, values) VALUES ($1, $2)`
+	result, err := m.db.Exec(query, id, string(values))
 	if err != nil {
 		return err
 	}
@@ -49,7 +49,7 @@ func (m *Manager) UpdateEnvironment(id string, env Environment) error {
 		return err
 	}
 
-	sql := `UPDATE app_environment SET values = $2 WHERE id = $1`
+	sql := `UPDATE app_environment SET values = $2 WHERE app = $1`
 	result, err := m.db.Exec(sql, id, values)
 	if err != nil {
 		return err
@@ -65,7 +65,7 @@ func (m *Manager) UpdateEnvironment(id string, env Environment) error {
 }
 
 func (m *Manager) DeleteEnvironment(id string) error {
-	sql := `DELETE FROM app_environment WHERE id = $1`
+	sql := `DELETE FROM app_environment WHERE app = $1`
 	result, err := m.db.Exec(sql, id)
 	if err != nil {
 		return err
