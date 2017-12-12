@@ -1,6 +1,6 @@
 workspace:
-  base: /go
-  path: src/github.com/ysitd-cloud/app-controller
+  base: /go/src
+  path: github.com/ysitd-cloud/app-controller
 
 pipeline:
   env:
@@ -11,9 +11,7 @@ pipeline:
     image: ysitd/glide
     pull: true
     commands:
-      - go get -v github.com/Masterminds/glide
-      - cd $GOPATH/src/github.com/Masterminds/glide && git checkout a88a9a6c4eeaac084a90a0cd2ca8a148cbd3ff63 && go install && cd -
-      - glide --home /go/.glide install -v
+      - glide install -v
   unit:
     group: test
     image: ysitd/glide
