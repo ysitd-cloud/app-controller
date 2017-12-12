@@ -6,13 +6,12 @@ import (
 	"github.com/satori/go.uuid"
 )
 
-
 func (m *Manager) CreateApplication(app Application) error {
 	if app.ID == "" {
 		app.ID = uuid.NewV4().String()
 	}
-	sql := `INSERT INTO applications (id, owner) VALUES ($1, $2)`
-	result, err := m.db.Exec(sql, app.ID, app.Owner)
+	sql := `INSERT INTO applications (id, owner, name) VALUES ($1, $2, $3)`
+	result, err := m.db.Exec(sql, app.ID, app.Owner, app.Name)
 	if err != nil {
 		return err
 	}
@@ -35,12 +34,12 @@ func (m *Manager) CreateApplication(app Application) error {
 }
 
 func (m *Manager) GetApplicationByID(id string) (*Application, error) {
-	query := `SELECT owner FROM application WHERE id = ?`
+	query := `SELECT owner, name FROM application WHERE id = ?`
 	row := m.db.QueryRow(query, id)
 
 	var app Application
 	var err error
-	if err := row.Scan(&app.Owner); err == sql.ErrNoRows {
+	if err := row.Scan(&app.Owner, &app.Name); err == sql.ErrNoRows {
 		return nil, nil
 	} else if err != nil {
 		return nil, err
@@ -64,7 +63,7 @@ func (m *Manager) GetApplicationByID(id string) (*Application, error) {
 }
 
 func (m *Manager) GetApplicationByOwner(owner string) ([]*Application, error) {
-	query := `SELECT id FROM application WHERE owner = ?`
+	query := `SELECT id, name FROM application WHERE owner = ?`
 	rows, err := m.db.Query(query, owner)
 	if err != nil {
 		return nil, err
@@ -75,7 +74,7 @@ func (m *Manager) GetApplicationByOwner(owner string) ([]*Application, error) {
 	for rows.Next() {
 		var app Application
 		var err error
-		if err := rows.Scan(&app.ID); err == sql.ErrNoRows {
+		if err := rows.Scan(&app.ID, &app.Name); err == sql.ErrNoRows {
 			return nil, nil
 		} else if err != nil {
 			return nil, err
@@ -103,7 +102,7 @@ func (m *Manager) GetApplicationByOwner(owner string) ([]*Application, error) {
 	return apps, nil
 }
 
-func (m *Manager) DeleteApplication(id string) (error) {
+func (m *Manager) DeleteApplication(id string) error {
 	var err error
 	if err = m.DeleteNetwork(id); err != nil {
 		return err

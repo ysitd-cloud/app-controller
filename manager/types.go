@@ -24,6 +24,7 @@ func (m *Manager) Close() {
 type Application struct {
 	ID          string      `json:"id,omitempty"`
 	Owner       string      `json:"owner"`
+	Name        string      `json:"name"`
 	Deployment  *Deployment `json:"deployment"`
 	Environment Environment `json:"environment"`
 	Network     *Network    `json:"network"`
