@@ -43,7 +43,7 @@ func (m *manager) CreateApplication(app Application) error {
 }
 
 func (m *manager) GetApplicationByID(id string) (*Application, error) {
-	query := `SELECT owner, name FROM application WHERE id = ?`
+	query := `SELECT owner, name FROM applications WHERE id = $1`
 	row := m.db.QueryRow(query, id)
 
 	var app Application
@@ -72,7 +72,7 @@ func (m *manager) GetApplicationByID(id string) (*Application, error) {
 }
 
 func (m *manager) GetApplicationByOwner(owner string) ([]*Application, error) {
-	query := `SELECT id, name FROM application WHERE owner = ?`
+	query := `SELECT id, name FROM applications WHERE owner = $1`
 	rows, err := m.db.Query(query, owner)
 	if err != nil {
 		return nil, err
@@ -125,7 +125,7 @@ func (m *manager) DeleteApplication(id string) error {
 		return err
 	}
 
-	sql := `DELETE FROM application WHERE id = $1`
+	sql := `DELETE FROM applications WHERE id = $1`
 	result, err := m.db.Exec(sql, id)
 	if err != nil {
 		return err
@@ -141,7 +141,7 @@ func (m *manager) DeleteApplication(id string) error {
 }
 
 func (m *manager) GetDeployment(id string) (*Deployment, error) {
-	query := `SELECT image, tag WHERE app = $1`
+	query := `SELECT image, tag FROM app_deployment WHERE app = $1`
 	row := m.db.QueryRow(query, id)
 
 	var deployment Deployment
@@ -283,7 +283,7 @@ func (m *manager) DeleteEnvironment(id string) error {
 }
 
 func (m *manager) GetNetwork(id string) (*Network, error) {
-	query := `SELECT domain WHERE app = $1`
+	query := `SELECT domain FROM app_network WHERE app = $1`
 	row := m.db.QueryRow(query, id)
 
 	var network Network

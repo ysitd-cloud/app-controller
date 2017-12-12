@@ -56,3 +56,19 @@ func CreateApplication(c *gin.Context) {
 
 	c.AbortWithStatus(http.StatusCreated)
 }
+
+func GetApplication(c *gin.Context) {
+	user := c.Param("user")
+
+	kernel := c.MustGet("kernel").(container.Kernel)
+	m := kernel.Make("manager").(manager.Manager)
+	defer m.Close()
+
+	apps, err := m.GetApplicationByOwner(user)
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, apps)
+}
