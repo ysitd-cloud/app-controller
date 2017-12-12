@@ -5,9 +5,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/tonyhhyip/go-di-container"
-	"github.com/ysitd-cloud/app-controller/deployer"
-	"github.com/ysitd-cloud/app-controller/manager"
-	"github.com/ysitd-cloud/app-controller/template"
+	"github.com/ysitd-cloud/app-controller/pkg/deployer"
+	"github.com/ysitd-cloud/app-controller/pkg/manager"
+	"github.com/ysitd-cloud/app-controller/pkg/template"
 )
 
 func CreateApplication(c *gin.Context) {

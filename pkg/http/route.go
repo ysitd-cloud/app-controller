@@ -2,8 +2,8 @@ package http
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/ysitd-cloud/app-controller/http/handler"
-	"github.com/ysitd-cloud/app-controller/http/middlewares"
+	"github.com/ysitd-cloud/app-controller/pkg/http/handler"
+	"github.com/ysitd-cloud/app-controller/pkg/http/middlewares"
 )
 
 func Register(app *gin.Engine) {

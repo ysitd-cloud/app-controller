@@ -12,7 +12,7 @@ var gitVersion string
 var gitCommit string
 var buildDate string
 
-var Version version.Info = version.Info{
+var Version = version.Info{
 	Major:        major,
 	Minor:        minor,
 	GitVersion:   gitVersion,
