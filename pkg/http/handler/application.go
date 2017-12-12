@@ -26,7 +26,7 @@ func CreateApplication(c *gin.Context) {
 		return
 	}
 
-	d := kernel.Make("deployer").(*deployer.Controller)
+	d := kernel.Make("deployer").(deployer.Controller)
 
 	secret := template.GenerateSecret(app.ID, app.Environment)
 	if _, err := d.CreateSecret(secret); err != nil {
