@@ -1,5 +1,5 @@
-hash: 6baebba90bbe728399bdf4681c76d1cba6c2fb13dd38d8f9d260f17cb7539413
-updated: 2017-12-05T13:33:56.847216+08:00
+hash: 4ffcb9b0e9bffad33ac4eff8a68d8cc9f0e5d2bb416df3d0b9cf2a8b6f927910
+updated: 2017-12-12T17:31:10.058387+08:00
 imports:
 - name: github.com/davecgh/go-spew
   version: 782f4967f2dc4564575ca782fe2d04090b5faca8
@@ -105,7 +105,7 @@ imports:
   - env
   - net
 - name: github.com/ysitd-cloud/k8s-utils
-  version: 71ce85c30f133b738ea256ea6a2fe42456647fb1
+  version: d174a25591862043ebbd2a46de021375453bf214
 - name: golang.org/x/crypto
   version: 81e90905daefcd6fd217b62423c0908922eadb30
   subpackages:

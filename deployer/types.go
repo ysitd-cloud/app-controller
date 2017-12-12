@@ -11,11 +11,11 @@ var deleteOptions = &metav1.DeleteOptions{
 }
 
 type Controller struct {
-	client    *kubernetes.Clientset
+	client    kubernetes.Interface
 	namespace string
 }
 
-func (c *Controller) SetClient(client *kubernetes.Clientset) {
+func (c *Controller) SetClient(client kubernetes.Interface) {
 	c.client = client
 }
 
