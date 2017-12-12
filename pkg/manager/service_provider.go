@@ -27,7 +27,7 @@ func (*managerServiceProvider) Provides() []string {
 
 func (*managerServiceProvider) Register(app container.Container) {
 	app.Bind("manager", func(app container.Container) interface{} {
-		m := new(Manager)
+		m := new(manager)
 		db := app.Make("pg").(*sql.DB)
 		m.SetDB(db)
 		return m

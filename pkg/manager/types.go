@@ -9,16 +9,33 @@ var (
 	IncorrectNumOfRowAffected = errors.New("incorrect number of row affected")
 )
 
-type Manager struct {
+type Manager interface {
+	SetDB(db *sql.DB)
+	Close()
+
+	CreateApplication(app Application) error
+	GetApplicationByID(id string) (*Application, error)
+	GetApplicationByOwner(owner string) ([]*Application, error)
+	DeleteApplication(id string) error
+
+	GetDeployment(id string) (*Deployment, error)
+	CreateDeployment(id string, deployment *Deployment) error
+	UpdateDeployment(id string, deployment *Deployment) error
+	DeleteDeployment(id string) error
+
+	GetEnvironment(id string) (Environment, error)
+	CreateEnvironment(id string, env Environment) error
+	UpdateEnvironment(id string, env Environment) error
+	DeleteEnvironment(id string) error
+
+	GetNetwork(id string) (*Network, error)
+	CreateNetwork(id string, network *Network) error
+	UpdateNetwork(id string, network *Network) error
+	DeleteNetwork(id string) error
+}
+
+type manager struct {
 	db *sql.DB
-}
-
-func (m *Manager) SetDB(db *sql.DB) {
-	m.db = db
-}
-
-func (m *Manager) Close() {
-	m.db.Close()
 }
 
 type Application struct {
