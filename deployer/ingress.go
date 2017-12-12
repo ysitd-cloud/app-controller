@@ -1,9 +1,9 @@
 package deployer
 
 import (
+	"k8s.io/api/extensions/v1beta1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	extensionV1beta1 "k8s.io/client-go/kubernetes/typed/extensions/v1beta1"
-	"k8s.io/api/extensions/v1beta1"
 )
 
 func (c *Controller) ingressClient() extensionV1beta1.IngressInterface {

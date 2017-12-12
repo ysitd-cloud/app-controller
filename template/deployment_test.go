@@ -2,11 +2,12 @@ package template
 
 import (
 	"testing"
+
 	"github.com/stretchr/testify/assert"
 )
 
 func TestGenerateDeployment(t *testing.T) {
-	env := map[string]string {
+	env := map[string]string{
 		"foo": "bar",
 	}
 	deployment := GenerateDeployment("123", "golang", "1.9-alpine", env)

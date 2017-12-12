@@ -1,13 +1,13 @@
 package template
 
 import (
-	"testing"
 	"github.com/stretchr/testify/assert"
 	"k8s.io/api/core/v1"
+	"testing"
 )
 
 func TestGenerateSecret(t *testing.T) {
-	envs := map[string]string {
+	envs := map[string]string{
 		"foo": "bar",
 	}
 	secret := GenerateSecret("123", envs)

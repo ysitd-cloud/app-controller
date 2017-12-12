@@ -3,8 +3,8 @@ package template
 import (
 	"fmt"
 
-	"k8s.io/api/core/v1"
 	"k8s.io/api/apps/v1beta2"
+	"k8s.io/api/core/v1"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -62,7 +62,7 @@ func getEnv(id string, env map[string]string) []v1.EnvVar {
 		Name: getName(id),
 	}
 
-	for k, _ := range env {
+	for k := range env {
 		source := v1.SecretKeySelector{
 			LocalObjectReference: selector,
 			Key:                  k,

@@ -23,7 +23,7 @@ func (m *Manager) GetEnvironment(id string) (Environment, error) {
 	return env, nil
 }
 
-func (m *Manager) CreateEnvironment(id string, env Environment) (error) {
+func (m *Manager) CreateEnvironment(id string, env Environment) error {
 	values, err := json.Marshal(env)
 	if err != nil {
 		return err

@@ -3,9 +3,9 @@ package deployer
 import (
 	"fmt"
 
+	"k8s.io/api/apps/v1beta2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	appv1beta2 "k8s.io/client-go/kubernetes/typed/apps/v1beta2"
-	"k8s.io/api/apps/v1beta2"
 )
 
 func (c *Controller) deploymentClient() appv1beta2.DeploymentInterface {
