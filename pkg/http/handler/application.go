@@ -18,7 +18,7 @@ func CreateApplication(c *gin.Context) {
 	}
 
 	kernel := c.MustGet("kernel").(container.Kernel)
-	m := kernel.Make("manager").(*manager.Manager)
+	m := kernel.Make("manager").(manager.Manager)
 	defer m.Close()
 
 	if err := m.CreateApplication(app); err != nil {
