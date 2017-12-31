@@ -46,7 +46,7 @@ func getContainer(id, image, tag string, env map[string]string) v1.Container {
 	}
 
 	container := v1.Container{
-		Name:  getName(id),
+		Name:  GetName(id),
 		Image: image,
 		Ports: []v1.ContainerPort{port},
 		Env:   getEnv(id, env),
@@ -59,7 +59,7 @@ func getEnv(id string, env map[string]string) []v1.EnvVar {
 	vars := make([]v1.EnvVar, 0)
 
 	selector := v1.LocalObjectReference{
-		Name: getName(id),
+		Name: GetName(id),
 	}
 
 	for k := range env {
