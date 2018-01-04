@@ -2,6 +2,8 @@ FROM ysitd/glide as builder
 
 ADD . /go/src/github.com/ysitd-cloud/app-controller
 
+WORKDIR /go/src/github.com/ysitd-cloud/app-controller
+
 RUN glide install -v --force && \
     make all
 
