@@ -4,7 +4,8 @@ ADD . /go/src/github.com/ysitd-cloud/app-controller
 
 WORKDIR /go/src/github.com/ysitd-cloud/app-controller
 
-RUN glide install -v --force && \
+RUN apk add --no-cache make && \
+    glide install -v --force && \
     make all
 
 FROM alpine:3.5
