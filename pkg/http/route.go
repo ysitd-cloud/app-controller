@@ -14,6 +14,7 @@ func Register(app *gin.Engine) {
 
 func registerV1API(app *gin.RouterGroup) {
 	app.POST("/application", handler.CreateApplication)
-	app.GET("/user/:user/application", handler.GetApplication)
+	app.GET("/user/:user/application", handler.GetApplicationByUsername)
 	app.PUT("/application/:app/image", handler.UpdateImage)
+	app.GET("/application/:app", handler.GetApplicationById)
 }
