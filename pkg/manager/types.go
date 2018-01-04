@@ -1,8 +1,9 @@
 package manager
 
 import (
-	"database/sql"
 	"errors"
+
+	"github.com/ysitd-cloud/go-common/db"
 )
 
 var (
@@ -10,7 +11,7 @@ var (
 )
 
 type Manager interface {
-	SetDB(db *sql.DB)
+	SetDB(db db.Pool)
 	Close()
 
 	CreateApplication(app Application) error
@@ -35,7 +36,7 @@ type Manager interface {
 }
 
 type manager struct {
-	db *sql.DB
+	db db.Pool
 }
 
 type Application struct {

@@ -4,6 +4,7 @@ import (
 	"github.com/tonyhhyip/go-di-container"
 	"github.com/ysitd-cloud/app-controller/pkg/deployer"
 	"github.com/ysitd-cloud/app-controller/pkg/manager"
+	"github.com/ysitd-cloud/go-common/db"
 )
 
 func init() {
@@ -27,4 +28,5 @@ func init() {
 
 	Kernel.Register(deployer.CreateDeployerServiceProvider)
 	Kernel.Register(manager.CreateManagerServiceProvider)
+	Kernel.Register(db.NewServiceProvider)
 }

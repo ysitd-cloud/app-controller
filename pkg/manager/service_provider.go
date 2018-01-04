@@ -1,9 +1,8 @@
 package manager
 
 import (
-	"database/sql"
-
 	"github.com/tonyhhyip/go-di-container"
+	"github.com/ysitd-cloud/go-common/db"
 )
 
 type managerServiceProvider struct {
@@ -28,7 +27,7 @@ func (*managerServiceProvider) Provides() []string {
 func (*managerServiceProvider) Register(app container.Container) {
 	app.Bind("manager", func(app container.Container) interface{} {
 		m := new(manager)
-		db := app.Make("pg").(*sql.DB)
+		db := app.Make("db.pool").(db.Pool)
 		m.SetDB(db)
 		return m
 	})

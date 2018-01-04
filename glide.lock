@@ -1,8 +1,8 @@
-hash: 4ffcb9b0e9bffad33ac4eff8a68d8cc9f0e5d2bb416df3d0b9cf2a8b6f927910
-updated: 2017-12-12T17:31:10.058387+08:00
+hash: 09f76632c637f86e9824179f69fa75e78700889d6d81afa040fb79e07946c416
+updated: 2018-01-05T04:17:46.671046+08:00
 imports:
 - name: github.com/davecgh/go-spew
-  version: 782f4967f2dc4564575ca782fe2d04090b5faca8
+  version: 346938d642f2ec3594ed81d874461961cd0faa76
   subpackages:
   - spew
 - name: github.com/emicklei/go-restful
@@ -16,7 +16,7 @@ imports:
 - name: github.com/gin-contrib/sse
   version: 22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae
 - name: github.com/gin-gonic/gin
-  version: d459835d2b077e44f7c9b453505ee29881d5d12d
+  version: 87a24107d040d98ffb3ad8ccb9eca0e949ad0dea
   repo: https://github.com/ysitd-cloud/gin
   vcs: git
   subpackages:
@@ -38,7 +38,7 @@ imports:
 - name: github.com/golang/glog
   version: 44145f04b68cf362d9c4df2182967c2275eaefed
 - name: github.com/golang/protobuf
-  version: 4bd1920723d7b7c925de087aa32e2187708897f7
+  version: 5a0f697c9ed9d68fef0116532c6e05cfeae00e55
   subpackages:
   - proto
   - ptypes
@@ -96,7 +96,7 @@ imports:
 - name: github.com/tonyhhyip/go-di-container
   version: 70c3bbde180962982ad98529ff7f56a98693292f
 - name: github.com/ugorji/go
-  version: ded73eae5db7e7a0ef6f55aace87a2873c5d2b74
+  version: c88ee250d0221a57af388746f5cf03768c21d6e2
   subpackages:
   - codec
 - name: github.com/ysitd-cloud/gin-utils
@@ -104,24 +104,37 @@ imports:
   subpackages:
   - env
   - net
+- name: github.com/ysitd-cloud/go-common
+  version: 814f5b62b0ed9b156808be26ec00021970185f2e
+  subpackages:
+  - db
+- name: github.com/ysitd-cloud/grpc-schema
+  version: 34a74f3c309844815fd39ee3c0cfc2cdd2cc87ee
+  subpackages:
+  - deployer
+  - deployer/actions
+  - deployer/models
 - name: github.com/ysitd-cloud/k8s-utils
   version: d174a25591862043ebbd2a46de021375453bf214
 - name: golang.org/x/crypto
-  version: 81e90905daefcd6fd217b62423c0908922eadb30
+  version: adbae1b6b6fb4b02448a0fc0dbbc9ba2b95b294d
   subpackages:
+  - acme/autocert
   - ssh/terminal
 - name: golang.org/x/net
   version: 1c05540f6879653db88113bc4a2b70aec4bd491f
   subpackages:
+  - context
   - http2
   - http2/hpack
   - idna
+  - internal/timeseries
   - lex/httplex
+  - trace
 - name: golang.org/x/sys
-  version: 7ddbeae9ae08c6a06a59597f0c9edbc5ff2444ce
+  version: 99f16d856c9836c42d24e7ab64ea72916925fa97
   subpackages:
   - unix
-  - windows
 - name: golang.org/x/text
   version: b19bf474d317b857955b12035d2c5acb57ce8b01
   subpackages:
@@ -136,12 +149,40 @@ imports:
   - unicode/bidi
   - unicode/norm
   - width
+- name: google.golang.org/genproto
+  version: a8101f21cf983e773d0c1133ebc5424792003214
+  subpackages:
+  - googleapis/rpc/status
+- name: google.golang.org/grpc
+  version: f3955b8e9e244dd4dd4bc4f7b7a23a8445400a76
+  subpackages:
+  - balancer
+  - balancer/base
+  - balancer/roundrobin
+  - codes
+  - connectivity
+  - credentials
+  - encoding
+  - grpclb/grpc_lb_v1/messages
+  - grpclog
+  - internal
+  - keepalive
+  - metadata
+  - naming
+  - peer
+  - resolver
+  - resolver/dns
+  - resolver/passthrough
+  - stats
+  - status
+  - tap
+  - transport
 - name: gopkg.in/go-playground/validator.v8
   version: 5f57d2222ad794d0dffb07e664ea05e2ee07d60c
 - name: gopkg.in/inf.v0
   version: 3887ee99ecf07df5b447e9b00d9c0b2adaa9f3e4
 - name: gopkg.in/yaml.v2
-  version: 53feefa2559fb8dfa8d81baad31be332c97d6c77
+  version: a5b47d31c556af34a302ce5d659e6fea44d90de0
 - name: k8s.io/api
   version: 6c6dac0277229b9e9578c5ca3f74a4345d35cdc2
   subpackages:
@@ -261,7 +302,7 @@ imports:
   - pkg/common
 testImports:
 - name: github.com/pmezard/go-difflib
-  version: d8ed2627bdf02c080bf22230dbb337003b7aba2d
+  version: 792786c7400a136282c1664665ae0a8db921c6c2
   subpackages:
   - difflib
 - name: github.com/stretchr/testify

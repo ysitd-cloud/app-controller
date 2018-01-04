@@ -18,6 +18,13 @@ import:
   - env
   - net
 - package: github.com/tonyhhyip/go-di-container
+- package: github.com/ysitd-cloud/grpc-schema
+  version: 34a74f3c309844815fd39ee3c0cfc2cdd2cc87ee
+- package: github.com/ysitd-cloud/go-common
+  subpackages:
+  - db
+- package: golang.org/x/net
+  version: 1c05540f6879653db88113bc4a2b70aec4bd491f
 testImport:
 - package: github.com/stretchr/testify
   subpackages:
