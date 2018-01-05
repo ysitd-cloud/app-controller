@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"encoding/json"
 
-	"github.com/satori/go.uuid"
 	"github.com/ysitd-cloud/go-common/db"
 )
 
@@ -12,40 +11,52 @@ func (m *manager) SetDB(db db.Pool) {
 	m.db = db
 }
 
-func (m *manager) Close() {}
-
-func (m *manager) CreateApplication(app Application) error {
-	if app.ID == "" {
-		app.ID = uuid.NewV4().String()
-	}
-	query := `INSERT INTO applications (id, owner, name) VALUES ($1, $2, $3)`
-
-	db, err := m.db.Acquire()
+func (m *manager) init() (db *sql.DB, tx *sql.Tx, confirm chan bool, e chan error, err error) {
+	db, err = m.db.Acquire()
 	if err != nil {
-		return err
+		return
 	}
+	tx, err = db.Begin()
+	if err != nil {
+		return
+	}
+	confirm = make(chan bool)
+	e = make(chan error)
+	return
+}
+
+func (m *manager) final(db *sql.DB, tx *sql.Tx, confirm <-chan bool, e chan<- error) {
 	defer db.Close()
+	confirmed := <-confirm
 
-	result, err := db.Exec(query, app.ID, app.Owner, app.Name)
-	if err != nil {
-		return err
+	if confirmed {
+		e <- tx.Commit()
+	} else {
+		e <- tx.Rollback()
 	}
+	defer close(e)
+}
 
-	if row, err := result.RowsAffected(); err != nil {
-		return err
-	} else if row != 1 {
-		return IncorrectNumOfRowAffected
-	}
+func (m *manager) CreateApplication(app Application) (confirm chan<- bool, e <-chan error, err error) {
+	app = normalizeApplication(app)
 
-	if err := m.CreateDeployment(app.ID, app.Deployment); err != nil {
-		return err
-	}
+	conn, tx, confirmChannel, eChannel, err := m.init()
 
-	if err := m.CreateEnvironment(app.ID, app.Environment); err != nil {
-		return err
-	}
+	prepareCreateApplication(app, tx)
+	prepareCreateDeployment(app.ID, app.Deployment, tx)
+	prepareCreateEnvironment(app.ID, app.Environment, tx)
+	prepareCreateNetwork(app.ID, app.Network, tx)
 
-	return m.CreateNetwork(app.ID, app.Network)
+	go m.final(conn, tx, confirmChannel, eChannel)
+	confirm = confirmChannel
+	e = eChannel
+	return
+}
+
+func prepareCreateApplication(app Application, tx *sql.Tx) (err error) {
+	query := `INSERT INTO applications (id, owner, name) VALUES ($1, $2, $3)`
+	_, err = tx.Exec(query, app.ID, app.Owner, app.Name)
+	return
 }
 
 func (m *manager) GetApplicationByID(id string) (*Application, error) {
@@ -128,39 +139,24 @@ func (m *manager) GetApplicationByOwner(owner string) ([]*Application, error) {
 	return apps, nil
 }
 
-func (m *manager) DeleteApplication(id string) error {
-	var err error
-	if err = m.DeleteNetwork(id); err != nil {
-		return err
-	}
+func (m *manager) DeleteApplication(id string) (confirm chan<- bool, e <-chan error, err error) {
+	conn, tx, confirmChannel, eChannel, err := m.init()
 
-	if err = m.DeleteEnvironment(id); err != nil {
-		return err
-	}
+	prepareDeleteNetwork(id, tx)
+	prepareDeleteEnvironment(id, tx)
+	prepareDeleteDeployment(id, tx)
+	prepareDeleteApplication(id, tx)
 
-	if err = m.DeleteDeployment(id); err != nil {
-		return err
-	}
+	go m.final(conn, tx, confirmChannel, eChannel)
+	confirm = confirmChannel
+	e = eChannel
+	return
+}
 
-	db, err := m.db.Acquire()
-	if err != nil {
-		return err
-	}
-	defer db.Close()
-
-	sql := `DELETE FROM applications WHERE id = $1`
-	result, err := db.Exec(sql, id)
-	if err != nil {
-		return err
-	}
-
-	if row, err := result.RowsAffected(); err != nil {
-		return err
-	} else if row != 1 {
-		return IncorrectNumOfRowAffected
-	}
-
-	return nil
+func prepareDeleteApplication(id string, tx *sql.Tx) (err error) {
+	query := `DELETE FROM applications WHERE id = $1`
+	_, err = tx.Exec(query, id)
+	return
 }
 
 func (m *manager) GetDeployment(id string) (*Deployment, error) {
@@ -184,74 +180,53 @@ func (m *manager) GetDeployment(id string) (*Deployment, error) {
 	return &deployment, nil
 }
 
-func (m *manager) CreateDeployment(id string, deployment *Deployment) error {
-	db, err := m.db.Acquire()
-	if err != nil {
-		return err
-	}
-	defer db.Close()
+func (m *manager) CreateDeployment(id string, deployment *Deployment) (confirm chan<- bool, e <-chan error, err error) {
+	conn, tx, confirmChannel, eChannel, err := m.init()
+	prepareCreateDeployment(id, deployment, tx)
+	go m.final(conn, tx, confirmChannel, eChannel)
+	confirm = confirmChannel
+	e = eChannel
+	return
+}
 
+func prepareCreateDeployment(id string, deployment *Deployment, tx *sql.Tx) (err error) {
 	query := `INSERT INTO app_deployment (app, image, tag) VALUES ($1, $2, $3)`
 	image := deployment.Image
 	tag := deployment.Tag
-	result, err := db.Exec(query, id, image, tag)
-	if err != nil {
-		return err
-	}
-
-	if row, err := result.RowsAffected(); err != nil {
-		return err
-	} else if row != 1 {
-		return IncorrectNumOfRowAffected
-	}
-
-	return nil
+	_, err = tx.Exec(query, id, image, tag)
+	return
 }
 
-func (m *manager) UpdateDeployment(id string, deployment *Deployment) error {
-	db, err := m.db.Acquire()
-	if err != nil {
-		return err
-	}
-	defer db.Close()
+func (m *manager) UpdateDeployment(id string, deployment *Deployment) (confirm chan<- bool, e <-chan error, err error) {
+	conn, tx, confirmChannel, eChannel, err := m.init()
+	prepareUpdateDeployment(id, deployment, tx)
+	go m.final(conn, tx, confirmChannel, eChannel)
+	confirm = confirmChannel
+	e = eChannel
+	return
+}
 
-	sql := `UPDATE app_deployment SET image = $2, tag = $3 WHERE app = $1`
+func prepareUpdateDeployment(id string, deployment *Deployment, tx *sql.Tx) (err error) {
+	query := `UPDATE app_deployment SET image = $2, tag = $3 WHERE app = $1`
 	image := deployment.Image
 	tag := deployment.Tag
-	result, err := db.Exec(sql, id, image, tag)
-	if err != nil {
-		return err
-	}
-
-	if row, err := result.RowsAffected(); err != nil {
-		return err
-	} else if row != 1 {
-		return IncorrectNumOfRowAffected
-	}
-
-	return nil
+	_, err = tx.Exec(query, id, image, tag)
+	return
 }
 
-func (m *manager) DeleteDeployment(id string) error {
-	db, err := m.db.Acquire()
-	if err != nil {
-		return err
-	}
-	defer db.Close()
+func (m *manager) DeleteDeployment(id string) (confirm chan<- bool, e <-chan error, err error) {
+	conn, tx, confirmChannel, eChannel, err := m.init()
+	prepareDeleteDeployment(id, tx)
+	go m.final(conn, tx, confirmChannel, eChannel)
+	confirm = confirmChannel
+	e = eChannel
+	return
+}
 
+func prepareDeleteDeployment(id string, tx *sql.Tx) (err error) {
 	query := `DELETE FROM app_deployment WHERE app = $1`
-	result, err := db.Exec(query, id)
-	if err != nil {
-		return err
-	}
-
-	if row, err := result.RowsAffected(); err != nil {
-		return err
-	} else if row != 1 {
-		return IncorrectNumOfRowAffected
-	}
-
-	return nil
+	_, err = tx.Exec(query, id)
+	return
 }
 
 func (m *manager) GetEnvironment(id string) (Environment, error) {
@@ -278,79 +253,57 @@ func (m *manager) GetEnvironment(id string) (Environment, error) {
 	return env, nil
 }
 
-func (m *manager) CreateEnvironment(id string, env Environment) error {
-	db, err := m.db.Acquire()
-	if err != nil {
-		return err
-	}
-	defer db.Close()
+func (m *manager) CreateEnvironment(id string, env Environment) (confirm chan<- bool, e <-chan error, err error) {
+	conn, tx, confirmChannel, eChannel, err := m.init()
+	prepareCreateEnvironment(id, env, tx)
+	go m.final(conn, tx, confirmChannel, eChannel)
+	confirm = confirmChannel
+	e = eChannel
+	return
+}
 
+func prepareCreateEnvironment(id string, env Environment, tx *sql.Tx) (err error) {
 	values, err := json.Marshal(env)
 	if err != nil {
-		return err
+		return
 	}
 	query := `INSERT INTO app_environment (app, values) VALUES ($1, $2)`
-	result, err := db.Exec(query, id, string(values))
-	if err != nil {
-		return err
-	}
-
-	if row, err := result.RowsAffected(); err != nil {
-		return err
-	} else if row != 1 {
-		return IncorrectNumOfRowAffected
-	}
-
-	return nil
+	_, err = tx.Exec(query, id, string(values))
+	return
 }
 
-func (m *manager) UpdateEnvironment(id string, env Environment) error {
+func (m *manager) UpdateEnvironment(id string, env Environment) (confirm chan<- bool, e <-chan error, err error) {
+	conn, tx, confirmChannel, eChannel, err := m.init()
+	prepareUpdateEnvironment(id, env, tx)
+	go m.final(conn, tx, confirmChannel, eChannel)
+	confirm = confirmChannel
+	e = eChannel
+	return
+}
+
+func prepareUpdateEnvironment(id string, env Environment, tx *sql.Tx) (err error) {
 	values, err := json.Marshal(env)
 	if err != nil {
-		return err
+		return
 	}
-
-	db, err := m.db.Acquire()
-	if err != nil {
-		return err
-	}
-	defer db.Close()
-
 	query := `UPDATE app_environment SET values = $2 WHERE app = $1`
-	result, err := db.Exec(query, id, values)
-	if err != nil {
-		return err
-	}
-
-	if row, err := result.RowsAffected(); err != nil {
-		return err
-	} else if row != 1 {
-		return IncorrectNumOfRowAffected
-	}
-
-	return nil
+	_, err = tx.Exec(query, id, string(values))
+	return
 }
 
-func (m *manager) DeleteEnvironment(id string) error {
-	db, err := m.db.Acquire()
-	if err != nil {
-		return err
-	}
-	defer db.Close()
+func (m *manager) DeleteEnvironment(id string) (confirm chan<- bool, e <-chan error, err error) {
+	conn, tx, confirmChannel, eChannel, err := m.init()
+	prepareDeleteEnvironment(id, tx)
+	go m.final(conn, tx, confirmChannel, eChannel)
+	confirm = confirmChannel
+	e = eChannel
+	return
+}
 
+func prepareDeleteEnvironment(id string, tx *sql.Tx) (err error) {
 	query := `DELETE FROM app_environment WHERE app = $1`
-	result, err := db.Exec(query, id)
-	if err != nil {
-		return err
-	}
-
-	if row, err := result.RowsAffected(); err != nil {
-		return err
-	} else if row != 1 {
-		return IncorrectNumOfRowAffected
-	}
-
-	return nil
+	_, err = tx.Exec(query, id)
+	return
 }
 
 func (m *manager) GetNetwork(id string) (*Network, error) {
@@ -374,68 +327,47 @@ func (m *manager) GetNetwork(id string) (*Network, error) {
 	return &network, nil
 }
 
-func (m *manager) CreateNetwork(id string, network *Network) error {
-	db, err := m.db.Acquire()
-	if err != nil {
-		return err
-	}
-	defer db.Close()
+func (m *manager) CreateNetwork(id string, network *Network) (confirm chan<- bool, e <-chan error, err error) {
+	conn, tx, confirmChannel, eChannel, err := m.init()
+	prepareUpdateNetwork(id, network, tx)
+	go m.final(conn, tx, confirmChannel, eChannel)
+	confirm = confirmChannel
+	e = eChannel
+	return
+}
 
+func prepareCreateNetwork(id string, network *Network, tx *sql.Tx) (err error) {
 	query := `INSERT INTO app_network (app, domain) VALUES ($1, $2)`
-	result, err := db.Exec(query, id, network.Domain)
-	if err != nil {
-		return err
-	}
-
-	if row, err := result.RowsAffected(); err != nil {
-		return err
-	} else if row != 1 {
-		return IncorrectNumOfRowAffected
-	}
-
-	return nil
+	_, err = tx.Exec(query, id, network.Domain)
+	return
 }
 
-func (m *manager) UpdateNetwork(id string, network *Network) error {
-	db, err := m.db.Acquire()
-	if err != nil {
-		return err
-	}
-	defer db.Close()
+func (m *manager) UpdateNetwork(id string, network *Network) (confirm chan<- bool, e <-chan error, err error) {
+	conn, tx, confirmChannel, eChannel, err := m.init()
+	prepareCreateNetwork(id, network, tx)
+	go m.final(conn, tx, confirmChannel, eChannel)
+	confirm = confirmChannel
+	e = eChannel
+	return
+}
 
+func prepareUpdateNetwork(id string, network *Network, tx *sql.Tx) (err error) {
 	query := `UPDATE app_network SET domain = $2 WHERE app = $1`
-	result, err := db.Exec(query, id, network.Domain)
-	if err != nil {
-		return err
-	}
-
-	if row, err := result.RowsAffected(); err != nil {
-		return err
-	} else if row != 1 {
-		return IncorrectNumOfRowAffected
-	}
-
-	return nil
+	_, err = tx.Exec(query, id, network.Domain)
+	return
 }
 
-func (m *manager) DeleteNetwork(id string) error {
-	db, err := m.db.Acquire()
-	if err != nil {
-		return err
-	}
-	defer db.Close()
+func (m *manager) DeleteNetwork(id string) (confirm chan<- bool, e <-chan error, err error) {
+	conn, tx, confirmChannel, eChannel, err := m.init()
+	prepareDeleteNetwork(id, tx)
+	go m.final(conn, tx, confirmChannel, eChannel)
+	confirm = confirmChannel
+	e = eChannel
+	return
+}
 
+func prepareDeleteNetwork(id string, tx *sql.Tx) (err error) {
 	query := `DELETE FROM app_network WHERE app = $1`
-	result, err := db.Exec(query, id)
-	if err != nil {
-		return err
-	}
-
-	if row, err := result.RowsAffected(); err != nil {
-		return err
-	} else if row != 1 {
-		return IncorrectNumOfRowAffected
-	}
-
-	return nil
+	_, err = tx.Exec(query, id)
+	return
 }

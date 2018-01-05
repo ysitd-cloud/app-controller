@@ -19,12 +19,27 @@ func CreateApplication(c *gin.Context) {
 
 	kernel := c.MustGet("kernel").(container.Kernel)
 	m := kernel.Make("manager").(manager.Manager)
-	defer m.Close()
 
-	if err := m.CreateApplication(app); err != nil {
+	confirm, e, err := m.CreateApplication(app)
+	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
+
+	ok := false
+
+	defer func() {
+		confirm <- ok
+		if ok {
+			err := <-e
+			if err != nil {
+				c.AbortWithError(http.StatusInternalServerError, err)
+			} else {
+				c.AbortWithStatus(http.StatusCreated)
+			}
+		}
+		close(confirm)
+	}()
 
 	d := kernel.Make("deployer").(deployer.Controller)
 
@@ -54,7 +69,7 @@ func CreateApplication(c *gin.Context) {
 		return
 	}
 
-	c.AbortWithStatus(http.StatusCreated)
+	ok = true
 }
 
 func GetApplicationByUsername(c *gin.Context) {
@@ -62,7 +77,6 @@ func GetApplicationByUsername(c *gin.Context) {
 
 	kernel := c.MustGet("kernel").(container.Kernel)
 	m := kernel.Make("manager").(manager.Manager)
-	defer m.Close()
 
 	apps, err := m.GetApplicationByOwner(user)
 	if err != nil {
@@ -78,8 +92,6 @@ func GetApplicationById(c *gin.Context) {
 
 	kernel := c.MustGet("kernel").(container.Kernel)
 	m := kernel.Make("manager").(manager.Manager)
-	defer m.Close()
-
 	app, err := m.GetApplicationByID(id)
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)

@@ -13,7 +13,6 @@ import (
 func UpdateImage(c *gin.Context) {
 	kernel := c.MustGet("kernel").(container.Kernel)
 	m := kernel.Make("manager").(manager.Manager)
-	defer m.Close()
 
 	id := c.Param("app")
 	var deployment manager.Deployment
@@ -23,10 +22,26 @@ func UpdateImage(c *gin.Context) {
 		return
 	}
 
-	if err := m.UpdateDeployment(id, &deployment); err != nil {
+	confirm, e, err := m.UpdateDeployment(id, &deployment)
+	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
+
+	ok := false
+
+	defer func() {
+		confirm <- ok
+		if ok {
+			err := <-e
+			if err != nil {
+				c.AbortWithError(http.StatusInternalServerError, err)
+			} else {
+				c.AbortWithStatus(http.StatusOK)
+			}
+		}
+		close(confirm)
+	}()
 
 	d := kernel.Make("deployer").(deployer.Controller)
 	if _, err := d.UpdateDeploymentImage(template.GetName(id), deployment.Image, deployment.Tag); err != nil {
@@ -34,5 +49,5 @@ func UpdateImage(c *gin.Context) {
 		return
 	}
 
-	c.AbortWithStatus(http.StatusOK)
+	ok = true
 }

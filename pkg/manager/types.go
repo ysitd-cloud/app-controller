@@ -12,27 +12,26 @@ var (
 
 type Manager interface {
 	SetDB(db db.Pool)
-	Close()
 
-	CreateApplication(app Application) error
+	CreateApplication(app Application) (confirm chan<- bool, e <-chan error, err error)
 	GetApplicationByID(id string) (*Application, error)
 	GetApplicationByOwner(owner string) ([]*Application, error)
-	DeleteApplication(id string) error
+	DeleteApplication(id string) (confirm chan<- bool, e <-chan error, err error)
 
 	GetDeployment(id string) (*Deployment, error)
-	CreateDeployment(id string, deployment *Deployment) error
-	UpdateDeployment(id string, deployment *Deployment) error
-	DeleteDeployment(id string) error
+	CreateDeployment(id string, deployment *Deployment) (confirm chan<- bool, e <-chan error, err error)
+	UpdateDeployment(id string, deployment *Deployment) (confirm chan<- bool, e <-chan error, err error)
+	DeleteDeployment(id string) (confirm chan<- bool, e <-chan error, err error)
 
 	GetEnvironment(id string) (Environment, error)
-	CreateEnvironment(id string, env Environment) error
-	UpdateEnvironment(id string, env Environment) error
-	DeleteEnvironment(id string) error
+	CreateEnvironment(id string, env Environment) (confirm chan<- bool, e <-chan error, err error)
+	UpdateEnvironment(id string, env Environment) (confirm chan<- bool, e <-chan error, err error)
+	DeleteEnvironment(id string) (confirm chan<- bool, e <-chan error, err error)
 
 	GetNetwork(id string) (*Network, error)
-	CreateNetwork(id string, network *Network) error
-	UpdateNetwork(id string, network *Network) error
-	DeleteNetwork(id string) error
+	CreateNetwork(id string, network *Network) (confirm chan<- bool, e <-chan error, err error)
+	UpdateNetwork(id string, network *Network) (confirm chan<- bool, e <-chan error, err error)
+	DeleteNetwork(id string) (confirm chan<- bool, e <-chan error, err error)
 }
 
 type manager struct {
