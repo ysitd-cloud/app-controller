@@ -54,7 +54,7 @@ func (m *manager) CreateApplication(app *Application) (confirm chan<- bool, e <-
 	return
 }
 
-func prepareCreateApplication(app Application, tx *sql.Tx) (err error) {
+func prepareCreateApplication(app *Application, tx *sql.Tx) (err error) {
 	query := `INSERT INTO applications (id, owner, name) VALUES ($1, $2, $3)`
 	_, err = tx.Exec(query, app.ID, app.Owner, app.Name)
 	return
@@ -317,7 +317,7 @@ func (m *manager) GetNetwork(id string) (*models.Network, error) {
 	query := `SELECT domain FROM app_network WHERE app = $1`
 	row := db.QueryRow(query, id)
 
-	var network Network
+	var network models.Network
 
 	if e := row.Scan(&network.Domain); e == sql.ErrNoRows {
 		return nil, nil

@@ -25,7 +25,7 @@ func UpdateImage(c *gin.Context) {
 	}
 
 	service := c.MustGet("service").(deployer.DeployerServer)
-	reply, err := service.CreateApplication(context.Background(), req)
+	reply, err := service.UpdateDeploymentImage(context.Background(), req)
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return

@@ -56,7 +56,7 @@ func GetApplicationById(c *gin.Context) {
 	}
 
 	service := c.MustGet("service").(deployer.DeployerServer)
-	reply, err := service.ListApplicationsByUsername(context.Background(), req)
+	reply, err := service.GetApplicationById(context.Background(), req)
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
