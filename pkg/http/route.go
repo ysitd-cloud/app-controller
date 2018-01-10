@@ -7,7 +7,6 @@ import (
 )
 
 func register(app gin.IRouter) {
-	app.Use(middlewares.BindKernel)
 	group := app.Group("/api/v1")
 	registerV1API(group)
 }
