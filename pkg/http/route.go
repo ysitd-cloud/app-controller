@@ -6,13 +6,13 @@ import (
 	"github.com/ysitd-cloud/app-controller/pkg/http/middlewares"
 )
 
-func Register(app *gin.Engine) {
+func register(app gin.IRouter) {
 	app.Use(middlewares.BindKernel)
 	group := app.Group("/api/v1")
 	registerV1API(group)
 }
 
-func registerV1API(app *gin.RouterGroup) {
+func registerV1API(app gin.IRoutes) {
 	app.POST("/application", handler.CreateApplication)
 	app.GET("/user/:user/application", handler.GetApplicationByUsername)
 	app.PUT("/application/:app/image", handler.UpdateImage)

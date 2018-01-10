@@ -4,50 +4,32 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/tonyhhyip/go-di-container"
-	"github.com/ysitd-cloud/app-controller/pkg/deployer"
-	"github.com/ysitd-cloud/app-controller/pkg/manager"
-	"github.com/ysitd-cloud/app-controller/pkg/template"
+	"github.com/ysitd-cloud/grpc-schema/deployer"
+	"github.com/ysitd-cloud/grpc-schema/deployer/actions"
+	"github.com/ysitd-cloud/grpc-schema/deployer/models"
+	"golang.org/x/net/context"
 )
 
 func UpdateImage(c *gin.Context) {
-	kernel := c.MustGet("kernel").(container.Kernel)
-	m := kernel.Make("manager").(manager.Manager)
-
 	id := c.Param("app")
-	var deployment manager.Deployment
+	var deployment models.Deployment
 
 	if c.BindJSON(&deployment) != nil {
-		c.AbortWithStatus(http.StatusBadRequest)
+		c.AbortWithStatus(http.StatusPreconditionFailed)
 		return
 	}
 
-	confirm, e, err := m.UpdateDeployment(id, &deployment)
+	req := &actions.UpdateDeploymentImageRequest{
+		Id:         id,
+		Deployment: &deployment,
+	}
+
+	service := c.MustGet("service").(deployer.DeployerServer)
+	reply, err := service.CreateApplication(context.Background(), req)
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
-	ok := false
-
-	defer func() {
-		confirm <- ok
-		if ok {
-			err := <-e
-			if err != nil {
-				c.AbortWithError(http.StatusInternalServerError, err)
-			} else {
-				c.AbortWithStatus(http.StatusOK)
-			}
-		}
-		close(confirm)
-	}()
-
-	d := kernel.Make("deployer").(deployer.Controller)
-	if _, err := d.UpdateDeploymentImage(template.GetName(id), deployment.Image, deployment.Tag); err != nil {
-		c.AbortWithError(http.StatusBadGateway, err)
-		return
-	}
-
-	ok = true
+	c.AbortWithStatusJSON(http.StatusCreated, reply)
 }

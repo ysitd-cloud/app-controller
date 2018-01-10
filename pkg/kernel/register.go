@@ -3,6 +3,7 @@ package kernel
 import (
 	"github.com/tonyhhyip/go-di-container"
 	"github.com/ysitd-cloud/app-controller/pkg/deployer"
+	"github.com/ysitd-cloud/app-controller/pkg/http"
 	"github.com/ysitd-cloud/app-controller/pkg/manager"
 	"github.com/ysitd-cloud/app-controller/pkg/service"
 	"github.com/ysitd-cloud/go-common/db"
@@ -31,4 +32,5 @@ func init() {
 	Kernel.Register(manager.CreateManagerServiceProvider)
 	Kernel.Register(db.NewServiceProvider)
 	Kernel.Register(service.NewServiceProvider)
+	Kernel.Register(http.NewServiceProvider)
 }
