@@ -38,7 +38,7 @@ func (m *manager) final(db *sql.DB, tx *sql.Tx, confirm <-chan bool, e chan<- er
 	defer close(e)
 }
 
-func (m *manager) CreateApplication(app Application) (confirm chan<- bool, e <-chan error, err error) {
+func (m *manager) CreateApplication(app *Application) (confirm chan<- bool, e <-chan error, err error) {
 	app = normalizeApplication(app)
 
 	conn, tx, confirmChannel, eChannel, err := m.init()

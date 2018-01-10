@@ -14,7 +14,7 @@ var (
 type Manager interface {
 	SetDB(db db.Pool)
 
-	CreateApplication(app Application) (confirm chan<- bool, e <-chan error, err error)
+	CreateApplication(app *Application) (confirm chan<- bool, e <-chan error, err error)
 	GetApplicationByID(id string) (*Application, error)
 	GetApplicationByOwner(owner string) ([]*Application, error)
 	DeleteApplication(id string) (confirm chan<- bool, e <-chan error, err error)
