@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 
 	"github.com/ysitd-cloud/go-common/db"
+	"github.com/ysitd-cloud/grpc-schema/deployer/models"
 )
 
 func (m *manager) SetDB(db db.Pool) {
@@ -159,7 +160,7 @@ func prepareDeleteApplication(id string, tx *sql.Tx) (err error) {
 	return
 }
 
-func (m *manager) GetDeployment(id string) (*Deployment, error) {
+func (m *manager) GetDeployment(id string) (*models.Deployment, error) {
 	db, err := m.db.Acquire()
 	if err != nil {
 		return nil, err
@@ -169,7 +170,7 @@ func (m *manager) GetDeployment(id string) (*Deployment, error) {
 	query := `SELECT image, tag FROM app_deployment WHERE app = $1`
 	row := db.QueryRow(query, id)
 
-	var deployment Deployment
+	var deployment models.Deployment
 
 	if e := row.Scan(&deployment.Image, &deployment.Tag); e == sql.ErrNoRows {
 		return nil, nil
@@ -180,7 +181,7 @@ func (m *manager) GetDeployment(id string) (*Deployment, error) {
 	return &deployment, nil
 }
 
-func (m *manager) CreateDeployment(id string, deployment *Deployment) (confirm chan<- bool, e <-chan error, err error) {
+func (m *manager) CreateDeployment(id string, deployment *models.Deployment) (confirm chan<- bool, e <-chan error, err error) {
 	conn, tx, confirmChannel, eChannel, err := m.init()
 	prepareCreateDeployment(id, deployment, tx)
 	go m.final(conn, tx, confirmChannel, eChannel)
@@ -189,7 +190,7 @@ func (m *manager) CreateDeployment(id string, deployment *Deployment) (confirm c
 	return
 }
 
-func prepareCreateDeployment(id string, deployment *Deployment, tx *sql.Tx) (err error) {
+func prepareCreateDeployment(id string, deployment *models.Deployment, tx *sql.Tx) (err error) {
 	query := `INSERT INTO app_deployment (app, image, tag) VALUES ($1, $2, $3)`
 	image := deployment.Image
 	tag := deployment.Tag
@@ -197,7 +198,7 @@ func prepareCreateDeployment(id string, deployment *Deployment, tx *sql.Tx) (err
 	return
 }
 
-func (m *manager) UpdateDeployment(id string, deployment *Deployment) (confirm chan<- bool, e <-chan error, err error) {
+func (m *manager) UpdateDeployment(id string, deployment *models.Deployment) (confirm chan<- bool, e <-chan error, err error) {
 	conn, tx, confirmChannel, eChannel, err := m.init()
 	prepareUpdateDeployment(id, deployment, tx)
 	go m.final(conn, tx, confirmChannel, eChannel)
@@ -206,7 +207,7 @@ func (m *manager) UpdateDeployment(id string, deployment *Deployment) (confirm c
 	return
 }
 
-func prepareUpdateDeployment(id string, deployment *Deployment, tx *sql.Tx) (err error) {
+func prepareUpdateDeployment(id string, deployment *models.Deployment, tx *sql.Tx) (err error) {
 	query := `UPDATE app_deployment SET image = $2, tag = $3 WHERE app = $1`
 	image := deployment.Image
 	tag := deployment.Tag
@@ -306,7 +307,7 @@ func prepareDeleteEnvironment(id string, tx *sql.Tx) (err error) {
 	return
 }
 
-func (m *manager) GetNetwork(id string) (*Network, error) {
+func (m *manager) GetNetwork(id string) (*models.Network, error) {
 	db, err := m.db.Acquire()
 	if err != nil {
 		return nil, err
@@ -327,7 +328,7 @@ func (m *manager) GetNetwork(id string) (*Network, error) {
 	return &network, nil
 }
 
-func (m *manager) CreateNetwork(id string, network *Network) (confirm chan<- bool, e <-chan error, err error) {
+func (m *manager) CreateNetwork(id string, network *models.Network) (confirm chan<- bool, e <-chan error, err error) {
 	conn, tx, confirmChannel, eChannel, err := m.init()
 	prepareUpdateNetwork(id, network, tx)
 	go m.final(conn, tx, confirmChannel, eChannel)
@@ -336,22 +337,22 @@ func (m *manager) CreateNetwork(id string, network *Network) (confirm chan<- boo
 	return
 }
 
-func prepareCreateNetwork(id string, network *Network, tx *sql.Tx) (err error) {
+func prepareCreateNetwork(id string, network *models.Network, tx *sql.Tx) (err error) {
 	query := `INSERT INTO app_network (app, domain) VALUES ($1, $2)`
 	_, err = tx.Exec(query, id, network.Domain)
 	return
 }
 
-func (m *manager) UpdateNetwork(id string, network *Network) (confirm chan<- bool, e <-chan error, err error) {
+func (m *manager) UpdateNetwork(id string, network *models.Network) (confirm chan<- bool, e <-chan error, err error) {
 	conn, tx, confirmChannel, eChannel, err := m.init()
-	prepareCreateNetwork(id, network, tx)
+	prepareUpdateNetwork(id, network, tx)
 	go m.final(conn, tx, confirmChannel, eChannel)
 	confirm = confirmChannel
 	e = eChannel
 	return
 }
 
-func prepareUpdateNetwork(id string, network *Network, tx *sql.Tx) (err error) {
+func prepareUpdateNetwork(id string, network *models.Network, tx *sql.Tx) (err error) {
 	query := `UPDATE app_network SET domain = $2 WHERE app = $1`
 	_, err = tx.Exec(query, id, network.Domain)
 	return
