@@ -18,7 +18,7 @@ func (*httpServiceProvider) Provides() []string {
 
 func (*httpServiceProvider) Register(app container.Container) {
 	app.Singleton("http.server", func(app container.Container) interface{} {
-		service := app.Make("grpc.service").(deployer.DeployerServer)
+		service := app.Make("service").(deployer.DeployerServer)
 		server := gin.Default()
 		server.Use(func(c *gin.Context) {
 			c.Set("service", service)
