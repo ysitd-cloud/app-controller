@@ -60,7 +60,6 @@ func (s *service) CreateApplication(_ context.Context, req *actions.CreateApplic
 	}
 
 	confirm <- true
-	close(confirm)
 	err = <-e
 
 	if err != nil {

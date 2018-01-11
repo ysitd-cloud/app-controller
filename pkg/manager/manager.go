@@ -249,7 +249,7 @@ func (m *manager) GetEnvironment(id string) (Environment, error) {
 	}
 
 	env := make(map[string]string)
-	json.Unmarshal([]byte(values), env)
+	json.Unmarshal([]byte(values), &env)
 
 	return env, nil
 }

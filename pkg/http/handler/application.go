@@ -11,8 +11,8 @@ import (
 )
 
 func CreateApplication(c *gin.Context) {
-	var app *manager.Application
-	if err := c.BindJSON(app); err != nil {
+	var app manager.Application
+	if err := c.BindJSON(&app); err != nil {
 		c.AbortWithError(http.StatusPreconditionFailed, err)
 		return
 	}
@@ -45,7 +45,11 @@ func GetApplicationByUsername(c *gin.Context) {
 		return
 	}
 
-	c.AbortWithStatusJSON(http.StatusCreated, reply)
+	apps := make([]*manager.Application, 0)
+	for _, a := range reply.GetApps() {
+		apps = append(apps, manager.FromPbToApplication(a))
+	}
+	c.AbortWithStatusJSON(http.StatusOK, apps)
 }
 
 func GetApplicationById(c *gin.Context) {
@@ -61,6 +65,9 @@ func GetApplicationById(c *gin.Context) {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
-
-	c.AbortWithStatusJSON(http.StatusCreated, reply)
+	if reply.GetExists() {
+		c.AbortWithStatusJSON(http.StatusOK, manager.FromPbToApplication(reply.GetApp()))
+	} else {
+		c.AbortWithStatus(http.StatusNotFound)
+	}
 }
