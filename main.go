@@ -3,9 +3,9 @@ package main
 import (
 	"net"
 
+	"code.ysitd.cloud/component/deployer/pkg/kernel"
 	"github.com/gin-gonic/gin"
 	_ "github.com/joho/godotenv/autoload"
-	"github.com/ysitd-cloud/app-controller/pkg/kernel"
 	ginNet "github.com/ysitd-cloud/gin-utils/net"
 	"google.golang.org/grpc"
 )

@@ -1,8 +1,8 @@
 FROM ysitd/glide as builder
 
-ADD . /go/src/github.com/ysitd-cloud/app-controller
+ADD . /go/src/code.ysitd.cloud/component/deployer
 
-WORKDIR /go/src/github.com/ysitd-cloud/app-controller
+WORKDIR /go/src/code.ysitd.cloud/component/deployer
 
 RUN apk add --no-cache make && \
     glide install -v --force && \
@@ -10,6 +10,6 @@ RUN apk add --no-cache make && \
 
 FROM alpine:3.5
 
-COPY --from=builder /go/src/github.com/ysitd-cloud/app-controller/controller /
+COPY --from=builder /go/src/code.ysitd.cloud/component/deployer/controller /
 
 ENTRYPOINT ["/controller"]

@@ -3,9 +3,9 @@ package service
 import (
 	"net"
 
+	"code.ysitd.cloud/component/deployer/pkg/deployer"
+	"code.ysitd.cloud/component/deployer/pkg/manager"
 	"github.com/tonyhhyip/go-di-container"
-	"github.com/ysitd-cloud/app-controller/pkg/deployer"
-	"github.com/ysitd-cloud/app-controller/pkg/manager"
 	pb "github.com/ysitd-cloud/grpc-schema/deployer"
 	"google.golang.org/grpc"
 )

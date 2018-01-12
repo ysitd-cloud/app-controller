@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/ysitd-cloud/app-controller/pkg/deployer"
-	"github.com/ysitd-cloud/app-controller/pkg/manager"
+	"code.ysitd.cloud/component/deployer/pkg/deployer"
+	"code.ysitd.cloud/component/deployer/pkg/manager"
 )
 
 type service struct {

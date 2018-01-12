@@ -3,7 +3,7 @@ package template
 import (
 	"fmt"
 
-	"github.com/ysitd-cloud/app-controller/version"
+	"code.ysitd.cloud/component/deployer/version"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 

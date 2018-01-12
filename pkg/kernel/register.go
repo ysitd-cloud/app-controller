@@ -1,11 +1,11 @@
 package kernel
 
 import (
+	"code.ysitd.cloud/component/deployer/pkg/deployer"
+	"code.ysitd.cloud/component/deployer/pkg/http"
+	"code.ysitd.cloud/component/deployer/pkg/manager"
+	"code.ysitd.cloud/component/deployer/pkg/service"
 	"github.com/tonyhhyip/go-di-container"
-	"github.com/ysitd-cloud/app-controller/pkg/deployer"
-	"github.com/ysitd-cloud/app-controller/pkg/http"
-	"github.com/ysitd-cloud/app-controller/pkg/manager"
-	"github.com/ysitd-cloud/app-controller/pkg/service"
 	"github.com/ysitd-cloud/go-common/db"
 )
 

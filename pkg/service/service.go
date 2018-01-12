@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/ysitd-cloud/app-controller/pkg/manager"
-	"github.com/ysitd-cloud/app-controller/pkg/template"
+	"code.ysitd.cloud/component/deployer/pkg/manager"
+	"code.ysitd.cloud/component/deployer/pkg/template"
 	"github.com/ysitd-cloud/grpc-schema/deployer/actions"
 	"github.com/ysitd-cloud/grpc-schema/deployer/models"
 	"golang.org/x/net/context"

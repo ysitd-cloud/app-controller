@@ -10,7 +10,7 @@ go:
   - 1.9.1
   - 1.9.2
 
-go_import_path: github.com/ysitd-cloud/app-controller
+go_import_path: code.ysitd.cloud/component/deployer
 
 install:
   - go get -v github.com/Masterminds/glide

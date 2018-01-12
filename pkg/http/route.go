@@ -1,8 +1,8 @@
 package http
 
 import (
+	"code.ysitd.cloud/component/deployer/pkg/http/handler"
 	"github.com/gin-gonic/gin"
-	"github.com/ysitd-cloud/app-controller/pkg/http/handler"
 )
 
 func register(app gin.IRouter) {
