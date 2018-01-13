@@ -1,6 +1,11 @@
-hash: 375487b91a655cae66f82f853688e47e0be0dfc8943c70f1884f15db913f6b77
-updated: 2018-01-13T07:55:48.208138+08:00
+hash: f5421360c40bb8e974359316b3ba30cc8ec2af1a56e0b5d99ce5a22359bb1c93
+updated: 2018-01-13T08:57:03.119678+08:00
 imports:
+- name: code.ysitd.cloud/gin/utils
+  version: c9cf404a0fafb33e4f6d007526689ae8202ef000
+  subpackages:
+  - env
+  - net
 - name: github.com/davecgh/go-spew
   version: 346938d642f2ec3594ed81d874461961cd0faa76
   subpackages:
@@ -99,11 +104,6 @@ imports:
   version: c88ee250d0221a57af388746f5cf03768c21d6e2
   subpackages:
   - codec
-- name: github.com/ysitd-cloud/gin-utils
-  version: adb809e0d1710cdefc9227095e8a77e88337c286
-  subpackages:
-  - env
-  - net
 - name: github.com/ysitd-cloud/go-common
   version: 814f5b62b0ed9b156808be26ec00021970185f2e
   subpackages:
