@@ -1,8 +1,8 @@
 package manager
 
 import (
+	"code.ysitd.cloud/common/go/db"
 	"github.com/tonyhhyip/go-di-container"
-	"github.com/ysitd-cloud/go-common/db"
 )
 
 type managerServiceProvider struct {

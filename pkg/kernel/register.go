@@ -1,12 +1,12 @@
 package kernel
 
 import (
+	"code.ysitd.cloud/common/go/db"
 	"code.ysitd.cloud/component/deployer/pkg/deployer"
 	"code.ysitd.cloud/component/deployer/pkg/http"
 	"code.ysitd.cloud/component/deployer/pkg/manager"
 	"code.ysitd.cloud/component/deployer/pkg/service"
 	"github.com/tonyhhyip/go-di-container"
-	"github.com/ysitd-cloud/go-common/db"
 )
 
 func init() {

@@ -1,6 +1,10 @@
-hash: f5421360c40bb8e974359316b3ba30cc8ec2af1a56e0b5d99ce5a22359bb1c93
-updated: 2018-01-13T08:57:03.119678+08:00
+hash: 475b82139ed021f3215cf304961577897c9519f6e2414d78a999d28087fbca4f
+updated: 2018-01-13T09:11:34.293861+08:00
 imports:
+- name: code.ysitd.cloud/common/go
+  version: 31c9b8afdba7b3dbe1b408a7b63844d58dd17379
+  subpackages:
+  - db
 - name: code.ysitd.cloud/gin/utils
   version: c9cf404a0fafb33e4f6d007526689ae8202ef000
   subpackages:
@@ -104,10 +108,6 @@ imports:
   version: c88ee250d0221a57af388746f5cf03768c21d6e2
   subpackages:
   - codec
-- name: github.com/ysitd-cloud/go-common
-  version: 814f5b62b0ed9b156808be26ec00021970185f2e
-  subpackages:
-  - db
 - name: github.com/ysitd-cloud/grpc-schema
   version: 34a74f3c309844815fd39ee3c0cfc2cdd2cc87ee
   subpackages:

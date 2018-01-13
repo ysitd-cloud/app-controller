@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 
-	"github.com/ysitd-cloud/go-common/db"
+	"code.ysitd.cloud/common/go/db"
 	"github.com/ysitd-cloud/grpc-schema/deployer/models"
 )
 
