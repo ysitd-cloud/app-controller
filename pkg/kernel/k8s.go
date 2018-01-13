@@ -3,8 +3,8 @@ package kernel
 import (
 	"os"
 
+	"code.ysitd.cloud/k8s/utils/go"
 	"github.com/tonyhhyip/go-di-container"
-	"github.com/ysitd-cloud/k8s-utils"
 )
 
 type k8sServiceProvider struct {

@@ -1,5 +1,5 @@
-hash: 475b82139ed021f3215cf304961577897c9519f6e2414d78a999d28087fbca4f
-updated: 2018-01-13T09:11:34.293861+08:00
+hash: 6e8c1445c266f76d4e5869b97a96e85a0a02c249444631f52a292ddd88d4c506
+updated: 2018-01-13T09:53:11.870861+08:00
 imports:
 - name: code.ysitd.cloud/common/go
   version: 31c9b8afdba7b3dbe1b408a7b63844d58dd17379
@@ -10,6 +10,8 @@ imports:
   subpackages:
   - env
   - net
+- name: code.ysitd.cloud/k8s/utils/go
+  version: a672e0f77c81153040f913dabb5ab78b5469f7c7
 - name: github.com/davecgh/go-spew
   version: 346938d642f2ec3594ed81d874461961cd0faa76
   subpackages:
@@ -114,8 +116,6 @@ imports:
   - deployer
   - deployer/actions
   - deployer/models
-- name: github.com/ysitd-cloud/k8s-utils
-  version: d174a25591862043ebbd2a46de021375453bf214
 - name: golang.org/x/crypto
   version: adbae1b6b6fb4b02448a0fc0dbbc9ba2b95b294d
   subpackages:
