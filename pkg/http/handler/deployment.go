@@ -3,10 +3,10 @@ package handler
 import (
 	"net/http"
 
+	"code.ysitd.cloud/grpc/schema/deployer"
+	"code.ysitd.cloud/grpc/schema/deployer/actions"
+	"code.ysitd.cloud/grpc/schema/deployer/models"
 	"github.com/gin-gonic/gin"
-	"github.com/ysitd-cloud/grpc-schema/deployer"
-	"github.com/ysitd-cloud/grpc-schema/deployer/actions"
-	"github.com/ysitd-cloud/grpc-schema/deployer/models"
 	"golang.org/x/net/context"
 )
 

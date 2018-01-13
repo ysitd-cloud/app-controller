@@ -3,8 +3,8 @@ package service
 import (
 	"code.ysitd.cloud/component/deployer/pkg/deployer"
 	"code.ysitd.cloud/component/deployer/pkg/manager"
+	pb "code.ysitd.cloud/grpc/schema/deployer"
 	"github.com/tonyhhyip/go-di-container"
-	pb "github.com/ysitd-cloud/grpc-schema/deployer"
 )
 
 func NewServiceProvider(app container.Container) container.ServiceProvider {

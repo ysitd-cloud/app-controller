@@ -1,6 +1,6 @@
 package manager
 
-import "github.com/ysitd-cloud/grpc-schema/deployer/models"
+import "code.ysitd.cloud/grpc/schema/deployer/models"
 
 func FromPbToApplication(app *models.Application) *Application {
 	return &Application{

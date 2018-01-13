@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"code.ysitd.cloud/component/deployer/pkg/manager"
+	"code.ysitd.cloud/grpc/schema/deployer"
+	"code.ysitd.cloud/grpc/schema/deployer/actions"
 	"github.com/gin-gonic/gin"
-	"github.com/ysitd-cloud/grpc-schema/deployer"
-	"github.com/ysitd-cloud/grpc-schema/deployer/actions"
 	"golang.org/x/net/context"
 )
 

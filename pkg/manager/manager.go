@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 
 	"code.ysitd.cloud/common/go/db"
-	"github.com/ysitd-cloud/grpc-schema/deployer/models"
+	"code.ysitd.cloud/grpc/schema/deployer/models"
 )
 
 func (m *manager) SetDB(db db.Pool) {

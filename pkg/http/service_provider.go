@@ -1,9 +1,9 @@
 package http
 
 import (
+	"code.ysitd.cloud/grpc/schema/deployer"
 	"github.com/gin-gonic/gin"
 	"github.com/tonyhhyip/go-di-container"
-	"github.com/ysitd-cloud/grpc-schema/deployer"
 )
 
 type httpServiceProvider struct {

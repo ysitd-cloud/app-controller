@@ -3,8 +3,8 @@ package service
 import (
 	"code.ysitd.cloud/component/deployer/pkg/manager"
 	"code.ysitd.cloud/component/deployer/pkg/template"
-	"github.com/ysitd-cloud/grpc-schema/deployer/actions"
-	"github.com/ysitd-cloud/grpc-schema/deployer/models"
+	"code.ysitd.cloud/grpc/schema/deployer/actions"
+	"code.ysitd.cloud/grpc/schema/deployer/models"
 	"golang.org/x/net/context"
 )
 

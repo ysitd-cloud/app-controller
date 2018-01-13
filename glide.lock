@@ -1,5 +1,5 @@
-hash: 6e8c1445c266f76d4e5869b97a96e85a0a02c249444631f52a292ddd88d4c506
-updated: 2018-01-13T09:53:11.870861+08:00
+hash: c77d8f24c96cb436fafbcc144ff99f677bd406fa65e267c72e67c65882a57e86
+updated: 2018-01-13T10:58:16.855088+08:00
 imports:
 - name: code.ysitd.cloud/common/go
   version: 31c9b8afdba7b3dbe1b408a7b63844d58dd17379
@@ -10,6 +10,12 @@ imports:
   subpackages:
   - env
   - net
+- name: code.ysitd.cloud/grpc/schema
+  version: b71fc73afa43723a3ca56d2219057c3ba1470f9e
+  subpackages:
+  - deployer
+  - deployer/actions
+  - deployer/models
 - name: code.ysitd.cloud/k8s/utils/go
   version: a672e0f77c81153040f913dabb5ab78b5469f7c7
 - name: github.com/davecgh/go-spew
@@ -110,12 +116,6 @@ imports:
   version: c88ee250d0221a57af388746f5cf03768c21d6e2
   subpackages:
   - codec
-- name: github.com/ysitd-cloud/grpc-schema
-  version: 34a74f3c309844815fd39ee3c0cfc2cdd2cc87ee
-  subpackages:
-  - deployer
-  - deployer/actions
-  - deployer/models
 - name: golang.org/x/crypto
   version: adbae1b6b6fb4b02448a0fc0dbbc9ba2b95b294d
   subpackages:
