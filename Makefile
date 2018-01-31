@@ -16,7 +16,7 @@ BUILD_VAR += -X version.gitVersion=$(GIT_VERSION)
 GIT_TREE_STATE = $(shell test -n "`git status --porcelain`" && echo "dirty" || echo "clean")
 BUILD_VAR += -X version.gitTreeState=$(GIT_TREE_STATE)
 
-BUILD_FLAG = -ldflags "$(BUILD_VAR)"
+BUILD_FLAG = -ldflags "-s -w $(BUILD_VAR)"
 
 all: controller
 
