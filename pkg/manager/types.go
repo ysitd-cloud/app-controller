@@ -14,26 +14,6 @@ type Manager interface {
 	GetDeploymentStore() DeploymentStore
 	GetEnvironmentStore() EnvironmentStore
 	GetNetworkStore() NetworkStore
-
-	CreateApplication(app *Application) (confirm chan<- bool, e <-chan error, err error)
-	GetApplicationByID(id string) (*Application, error)
-	GetApplicationByOwner(owner string) ([]*Application, error)
-	DeleteApplication(id string) (confirm chan<- bool, e <-chan error, err error)
-
-	GetDeployment(id string) (*models.Deployment, error)
-	CreateDeployment(id string, deployment *models.Deployment) (confirm chan<- bool, e <-chan error, err error)
-	UpdateDeployment(id string, deployment *models.Deployment) (confirm chan<- bool, e <-chan error, err error)
-	DeleteDeployment(id string) (confirm chan<- bool, e <-chan error, err error)
-
-	GetEnvironment(id string) (Environment, error)
-	CreateEnvironment(id string, env Environment) (confirm chan<- bool, e <-chan error, err error)
-	UpdateEnvironment(id string, env Environment) (confirm chan<- bool, e <-chan error, err error)
-	DeleteEnvironment(id string) (confirm chan<- bool, e <-chan error, err error)
-
-	GetNetwork(id string) (*models.Network, error)
-	CreateNetwork(id string, network *models.Network) (confirm chan<- bool, e <-chan error, err error)
-	UpdateNetwork(id string, network *models.Network) (confirm chan<- bool, e <-chan error, err error)
-	DeleteNetwork(id string) (confirm chan<- bool, e <-chan error, err error)
 }
 
 type TwoPhaseConfirm interface {

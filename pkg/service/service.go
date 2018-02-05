@@ -10,7 +10,8 @@ import (
 
 func (s *service) ListApplicationsByUsername(_ context.Context, req *actions.ListApplicationsByUsernameRequest) (reply *actions.ListApplicationsByUsernameReply, err error) {
 	username := req.GetUsername()
-	apps, err := s.manager.GetApplicationByOwner(username)
+	store := s.manager.GetApplicationStore()
+	apps, err := store.GetByOwner(username)
 	if err != nil {
 		return
 	}
@@ -27,41 +28,39 @@ func (s *service) ListApplicationsByUsername(_ context.Context, req *actions.Lis
 
 func (s *service) CreateApplication(_ context.Context, req *actions.CreateApplicationRequest) (reply *actions.CreateApplicationReply, err error) {
 	app := manager.FromPbToApplication(req.App)
-	confirm, e, err := s.manager.CreateApplication(app)
+	store := s.manager.GetApplicationStore()
+	phase, err := store.Create(app)
 	if err != nil {
 		return
 	}
-	defer close(confirm)
 
 	env := app.Environment
 	secret := template.GenerateSecret(app.ID, env)
 	if _, err = s.deployer.CreateSecret(secret); err != nil {
-		confirm <- false
+		phase.Cancel()
 		return
 	}
 
 	d := app.Deployment
 	deployment := template.GenerateDeployment(app.ID, d.Image, d.Tag, env)
 	if _, err = s.deployer.CreateDeployment(deployment); err != nil {
-		confirm <- false
+		phase.Cancel()
 		return
 	}
 
 	service := template.GenerateService(app.ID)
 	if _, err = s.deployer.CreateService(service); err != nil {
-		confirm <- false
+		phase.Cancel()
 		return
 	}
 
 	ingress := template.GenerateIngress(app.ID, app.Network.GetDomain())
 	if _, err = s.deployer.CreateIngress(ingress); err != nil {
-		confirm <- false
+		phase.Cancel()
 		return
 	}
 
-	confirm <- true
-	err = <-e
-
+	err = phase.Ok()
 	if err != nil {
 		return
 	}
@@ -77,20 +76,18 @@ func (s *service) UpdateDeploymentImage(_ context.Context, req *actions.UpdateDe
 	deployment := req.GetDeployment()
 	id := req.GetId()
 
-	confirm, e, err := s.manager.UpdateDeployment(id, deployment)
+	phase, err := s.manager.GetDeploymentStore().Update(id, deployment)
 	if err != nil {
 		return
 	}
-	defer close(confirm)
 
 	_, err = s.deployer.UpdateDeploymentImage(template.GetName(id), deployment.GetImage(), deployment.GetTag())
 	if err != nil {
-		confirm <- false
+		phase.Cancel()
 		return
 	}
 
-	confirm <- true
-	err = <-e
+	err = phase.Ok()
 	if err != nil {
 		return
 	}
@@ -104,7 +101,8 @@ func (s *service) UpdateDeploymentImage(_ context.Context, req *actions.UpdateDe
 func (s *service) GetApplicationById(_ context.Context, req *actions.GetApplicationByIdRequest) (reply *actions.GetApplicationByIdResponse, err error) {
 	id := req.GetId()
 
-	app, err := s.manager.GetApplicationByID(id)
+	store := s.manager.GetApplicationStore()
+	app, err := store.GetByID(id)
 	if err != nil {
 		return
 	}
