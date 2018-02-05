@@ -2,6 +2,7 @@ package manager
 
 import (
 	"database/sql"
+	"encoding/json"
 
 	"code.ysitd.cloud/grpc/schema/deployer/models"
 )
