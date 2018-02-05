@@ -18,5 +18,6 @@ install:
   - glide install -v
 
 script:
-  - go test ./...
+  - go test -v ./...
+  - go vet
   - make all
