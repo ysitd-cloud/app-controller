@@ -5,8 +5,6 @@ import (
 )
 
 func (m *manager) SetDB(db db.Pool) {
-	m.db = db
-
 	if m.app == nil {
 		m.app = new(appStore)
 	}

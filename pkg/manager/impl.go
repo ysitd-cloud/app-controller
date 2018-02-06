@@ -13,7 +13,6 @@ type twoPhase struct {
 	tx      *sql.Tx
 }
 type manager struct {
-	db         db.Pool
 	app        *appStore
 	deployment *deploymentStore
 	env        *envStore
