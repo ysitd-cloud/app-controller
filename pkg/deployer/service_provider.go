@@ -26,11 +26,9 @@ func (*deployerServiceProvider) Provides() []string {
 
 func (*deployerServiceProvider) Register(app container.Container) {
 	app.Bind("deployer", func(app container.Container) interface{} {
-		c := new(controller)
 		client := app.Make("k8s.client").(kubernetes.Interface)
-		c.SetClient(client)
 		namespace := app.Make("k8s.namespace").(string)
-		c.SetNamespace(namespace)
+		c := NewController(client, namespace)
 		return c
 	})
 }

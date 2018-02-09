@@ -1,12 +1,12 @@
-hash: c77d8f24c96cb436fafbcc144ff99f677bd406fa65e267c72e67c65882a57e86
-updated: 2018-01-13T10:58:16.855088+08:00
+hash: 3a748e1d70c84c93fff397600f01d745467a0b89323612acfb2588aaaa03f2aa
+updated: 2018-02-09T13:16:16.002292+08:00
 imports:
 - name: code.ysitd.cloud/common/go
-  version: 31c9b8afdba7b3dbe1b408a7b63844d58dd17379
+  version: 4ed1e630d722932408a85b1217ff4f25482c85e9
   subpackages:
   - db
 - name: code.ysitd.cloud/gin/utils
-  version: c9cf404a0fafb33e4f6d007526689ae8202ef000
+  version: 9acd745aa495a2d5b7c68f4bd9d3ac85107276a9
   subpackages:
   - env
   - net
@@ -18,8 +18,10 @@ imports:
   - deployer/models
 - name: code.ysitd.cloud/k8s/utils/go
   version: a672e0f77c81153040f913dabb5ab78b5469f7c7
+- name: code.ysitd.cloud/toolkit/log
+  version: 29af559cb9a0efd883c897a6e88dabbc9bc83b88
 - name: github.com/davecgh/go-spew
-  version: 346938d642f2ec3594ed81d874461961cd0faa76
+  version: 782f4967f2dc4564575ca782fe2d04090b5faca8
   subpackages:
   - spew
 - name: github.com/emicklei/go-restful
@@ -30,10 +32,8 @@ imports:
   version: dcef7f55730566d41eae5db10e7d6981829720f6
 - name: github.com/ghodss/yaml
   version: 73d445a93680fa1a78ae23a5839bad48f32ba1ee
-- name: github.com/gin-contrib/sse
-  version: 22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae
 - name: github.com/gin-gonic/gin
-  version: 87a24107d040d98ffb3ad8ccb9eca0e949ad0dea
+  version: 11d866e2e129d937714e431e29cd4a22c36c65a9
   repo: https://github.com/ysitd-cloud/gin
   vcs: git
   subpackages:
@@ -109,9 +109,11 @@ imports:
 - name: github.com/satori/go.uuid
   version: f58768cc1a7a7e77a3bd49e98cdd21419399b6a3
 - name: github.com/spf13/pflag
-  version: 9ff6c6923cfffbcd502984b8e0c80539a94968b7
+  version: e57e3eeb33f795204c1ca35f56c44f83227c6e66
+- name: github.com/spf13/viper
+  version: 25b30aa063fc18e48662b86996252eabdcf2f0c7
 - name: github.com/tonyhhyip/go-di-container
-  version: 70c3bbde180962982ad98529ff7f56a98693292f
+  version: d3a112c821f6502e88a9b89e201acc646839d756
 - name: github.com/ugorji/go
   version: c88ee250d0221a57af388746f5cf03768c21d6e2
   subpackages:
@@ -154,7 +156,7 @@ imports:
   subpackages:
   - googleapis/rpc/status
 - name: google.golang.org/grpc
-  version: 7cea4cc846bcf00cbb27595b07da5de875ef7de9
+  version: 6b51017f791ae1cfbec89c52efdf444b13b550ef
   subpackages:
   - balancer
   - balancer/base
@@ -302,7 +304,7 @@ imports:
   - pkg/common
 testImports:
 - name: github.com/pmezard/go-difflib
-  version: 792786c7400a136282c1664665ae0a8db921c6c2
+  version: d8ed2627bdf02c080bf22230dbb337003b7aba2d
   subpackages:
   - difflib
 - name: github.com/stretchr/testify
