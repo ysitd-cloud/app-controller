@@ -7,7 +7,7 @@ import (
 
 func TestGetName(t *testing.T) {
 	id := "123"
-	name := getName(id)
+	name := GetName(id)
 	assert.Equal(t, "app-123", name)
 }
 

@@ -2,58 +2,61 @@ package manager
 
 import (
 	"database/sql"
-	"errors"
-)
 
-var (
-	IncorrectNumOfRowAffected = errors.New("incorrect number of row affected")
+	"code.ysitd.cloud/common/go/db"
+	"code.ysitd.cloud/grpc/schema/deployer/models"
 )
 
 type Manager interface {
-	SetDB(db *sql.DB)
-	Close()
+	SetDB(db db.Pool)
 
-	CreateApplication(app Application) error
-	GetApplicationByID(id string) (*Application, error)
-	GetApplicationByOwner(owner string) ([]*Application, error)
-	DeleteApplication(id string) error
-
-	GetDeployment(id string) (*Deployment, error)
-	CreateDeployment(id string, deployment *Deployment) error
-	UpdateDeployment(id string, deployment *Deployment) error
-	DeleteDeployment(id string) error
-
-	GetEnvironment(id string) (Environment, error)
-	CreateEnvironment(id string, env Environment) error
-	UpdateEnvironment(id string, env Environment) error
-	DeleteEnvironment(id string) error
-
-	GetNetwork(id string) (*Network, error)
-	CreateNetwork(id string, network *Network) error
-	UpdateNetwork(id string, network *Network) error
-	DeleteNetwork(id string) error
+	GetApplicationStore() ApplicationStore
+	GetDeploymentStore() DeploymentStore
+	GetEnvironmentStore() EnvironmentStore
+	GetNetworkStore() NetworkStore
 }
 
-type manager struct {
-	db *sql.DB
+type TwoPhaseConfirm interface {
+	Ok() (err error)
+	Cancel() (err error)
+	GetTx() *sql.Tx
+}
+
+type ApplicationStore interface {
+	Create(app *Application) (TwoPhaseConfirm, error)
+	GetByID(id string) (*Application, error)
+	GetByOwner(owner string) ([]*Application, error)
+	Delete(id string) (TwoPhaseConfirm, error)
+}
+
+type DeploymentStore interface {
+	Get(id string) (*models.Deployment, error)
+	Create(id string, deployment *models.Deployment) (TwoPhaseConfirm, error)
+	Update(id string, deployment *models.Deployment) (TwoPhaseConfirm, error)
+	Delete(id string) (TwoPhaseConfirm, error)
+}
+
+type EnvironmentStore interface {
+	Get(id string) (Environment, error)
+	Create(id string, env Environment) (TwoPhaseConfirm, error)
+	Update(id string, env Environment) (TwoPhaseConfirm, error)
+	Delete(id string) (TwoPhaseConfirm, error)
+}
+
+type NetworkStore interface {
+	Get(id string) (*models.Network, error)
+	Create(id string, network *models.Network) (TwoPhaseConfirm, error)
+	Update(id string, network *models.Network) (TwoPhaseConfirm, error)
+	Delete(id string) (TwoPhaseConfirm, error)
 }
 
 type Application struct {
-	ID          string      `json:"id,omitempty"`
-	Owner       string      `json:"owner"`
-	Name        string      `json:"name"`
-	Deployment  *Deployment `json:"deployment"`
-	Environment Environment `json:"environment"`
-	Network     *Network    `json:"network"`
-}
-
-type Deployment struct {
-	Image string `json:"image"`
-	Tag   string `json:"tag"`
+	ID          string             `json:"id,omitempty"`
+	Owner       string             `json:"owner"`
+	Name        string             `json:"name"`
+	Deployment  *models.Deployment `json:"deployment"`
+	Environment Environment        `json:"environment"`
+	Network     *models.Network    `json:"network"`
 }
 
 type Environment map[string]string
-
-type Network struct {
-	Domain string `json:"domain"`
-}

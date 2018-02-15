@@ -3,17 +3,17 @@ package template
 import (
 	"fmt"
 
-	"github.com/ysitd-cloud/app-controller/version"
+	"code.ysitd.cloud/component/deployer/version"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func getName(id string) string {
+func GetName(id string) string {
 	return fmt.Sprintf("app-%s", id)
 }
 
 func getObjectMeta(id string) metav1.ObjectMeta {
 	return metav1.ObjectMeta{
-		Name:   getName(id),
+		Name:   GetName(id),
 		Labels: getLabels(id),
 	}
 }

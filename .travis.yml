@@ -1,16 +1,25 @@
 language: go
 sudo: false
 
+cache:
+  directories:
+    - $HOME/.glide
+
 go:
   - 1.9
+  - 1.9.1
+  - 1.9.2
+  - 1.9.3
+  - 1.9.4
 
-go_import_path: github.com/ysitd-cloud/app-controller
+go_import_path: code.ysitd.cloud/component/deployer
 
 install:
   - go get -v github.com/Masterminds/glide
-  - cd $GOPATH/src/github.com/Masterminds/glide && git checkout a88a9a6c4eeaac084a90a0cd2ca8a148cbd3ff63 && go install && cd -
+  - cd $GOPATH/src/github.com/Masterminds/glide && git checkout v0.13.1 && go install && cd -
   - glide install -v
 
 script:
-  - go test ./...
+  - go test -v ./...
+  - go vet
   - make all

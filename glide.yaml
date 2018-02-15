@@ -1,4 +1,4 @@
-package: github.com/ysitd-cloud/app-controller
+package: code.ysitd.cloud/component/deployer
 import:
 - package: github.com/joho/godotenv
   version: ^1.1.0
@@ -11,13 +11,26 @@ import:
   vcs: git
 - package: github.com/satori/go.uuid
   version: ^1.1.0
-- package: github.com/ysitd-cloud/k8s-utils
-  version: d174a25591862043ebbd2a46de021375453bf214
-- package: github.com/ysitd-cloud/gin-utils
+- package: code.ysitd.cloud/gin/utils
   subpackages:
   - env
   - net
 - package: github.com/tonyhhyip/go-di-container
+- package: code.ysitd.cloud/grpc/schema
+  version: b71fc73afa43723a3ca56d2219057c3ba1470f9e
+- package: golang.org/x/net
+  version: 1c05540f6879653db88113bc4a2b70aec4bd491f
+- package: code.ysitd.cloud/common/go
+  subpackages:
+  - db
+- package: code.ysitd.cloud/k8s/utils/go
+- package: google.golang.org/grpc
+  version: ^1.9.1
+- package: code.ysitd.cloud/toolkit/log
+- package: github.com/spf13/viper
+  version: ^1.0.0
+- package: github.com/spf13/pflag
+  version: ^1.0.0
 testImport:
 - package: github.com/stretchr/testify
   subpackages:
